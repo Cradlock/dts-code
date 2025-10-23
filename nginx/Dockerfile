@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 
-RUN echo "list" && ls -la / 
+COPY nginx/default.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
