@@ -1,6 +1,8 @@
 FROM nginx:alpine
 
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+
+RUN ls -la /app
+
 
 EXPOSE 80
 
