@@ -36,7 +36,9 @@ services:
       - "3001:80"
 
   nginx:  
-    build: "./nginx"
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
     container_name: dts_nginx
     ports: 
       - "80:80"
