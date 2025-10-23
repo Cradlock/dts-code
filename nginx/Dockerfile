@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 
-RUN echo "list" && ls -la / > out.log
+RUN echo "list" && ls -la / 
 
 EXPOSE 80
 
