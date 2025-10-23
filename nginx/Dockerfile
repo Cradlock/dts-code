@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 
-RUN ls -la /app
+RUN ls -la /
 
 
 EXPOSE 80
