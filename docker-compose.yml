@@ -43,6 +43,7 @@ services:
       - ./admin/build:/usr/share/nginx/html/admin
     ports: 
       - "80:80"
+      - "443:443"
     depends_on:
       - front
       - admin
