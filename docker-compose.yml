@@ -36,10 +36,11 @@ services:
       - "3001:80"
 
   nginx:  
-    build:
-      context: .
-      dockerfile: ./nginx/Dockerfile
-    container_name: dts_nginx
+    image: nginx:alpine
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/nginx.conf
+      - ./frontend/build:/usr/share/nginx/html/front
+      - ./admin/build:/usr/share/nginx/html/admin
     ports: 
       - "80:80"
     depends_on:
