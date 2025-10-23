@@ -36,12 +36,7 @@ services:
       - "3001:80"
 
   nginx:  
-    image: nginx:alpine
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/nginx.conf
-      - ./frontend/build:/usr/share/nginx/html/front
-      - ./admin/build:/usr/share/nginx/html/admin
-      - /etc/ssl/shop-dts:/etc/ssl/shop-dts:ro
+    image: nginx:alpine     
     ports: 
       - "80:80"
       - "443:443"
@@ -49,5 +44,31 @@ services:
       - front
       - admin
       - backend
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/nginx.conf
+      - ./frontend/build:/usr/share/nginx/html/front
+      - ./admin/build:/usr/share/nginx/html/admin
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs
+      - ./vhost.d
+      - ./html
+    networks:
+      - webnet
 
-
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./certs:/etc/nginx/certs
+      - ./vhost.d
+      - ./html
+    depends_on:
+      - nginx-proxy
+    networks:
+      - webnet
+    
+networks:
+  webnet:
