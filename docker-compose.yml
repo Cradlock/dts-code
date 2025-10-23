@@ -44,5 +44,9 @@ services:
 
   nginx:  
     build: "./nginx"
-    
+
+    depends_on:
+      - front
+      - admin
+
 
