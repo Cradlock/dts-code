@@ -3,7 +3,7 @@ FROM nginx:alpine
 
 COPY nginx/default.conf /etc/nginx/nginx.conf
 
-COPY admin/build admin/build
+RUN ls -a /admin
 
 
 EXPOSE 80
