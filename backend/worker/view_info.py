@@ -1,6 +1,6 @@
 from custom_auth.models import *
 from rest_framework.generics import RetrieveAPIView,ListAPIView,RetrieveUpdateDestroyAPIView
-from rest_framework import mixins, viewsets
+from rest_framework import mixins, viewsets,generics
 from catalog.pag import *
 from catalog.s import *
 from custom_auth.lib import CustomPermTriClass
