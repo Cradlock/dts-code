@@ -29,24 +29,23 @@ services:
   front:
     build: "./frontend"
     container_name: dts_front
-    volumes:
-      - ./front/build:/usr/share/nginx/html
     ports:
       - "3000:80"
 
   admin:
     build: "./admin"
     container_name: dts_admin
-    volumes:
-      - ./admin/build:/usr/share/nginx/html
     ports:
       - "3001:80"
 
   nginx:  
     build: "./nginx"
-
+    container_name: dts_nginx
+    ports: 
+      - "80:80"
     depends_on:
       - front
       - admin
+      - backend
 
 
