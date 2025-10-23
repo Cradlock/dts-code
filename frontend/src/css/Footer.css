@@ -1,0 +1,93 @@
+/* --- Светлая тема (по умолчанию) --- */
+:root {
+  --footer-bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  --footer-text: #fff;
+  --footer-accent: #00f2fe;
+  --footer-accent-hover: #4facfe;
+  --footer-link: #ddd;
+  --footer-link-hover: #00f2fe;
+  --footer-shadow: rgba(0, 0, 0, 0.4);
+  --social-bg: rgba(255, 255, 255, 0.1);
+  --social-hover-bg: rgba(0, 242, 254, 0.3);
+  --social-hover-shadow: rgba(0, 242, 254, 0.5);
+  --btn-bg: linear-gradient(135deg, #007bff, #00c6ff);
+  --btn-hover-bg: linear-gradient(135deg, #0056d2, #00a3e0);
+  --btn-shadow: rgba(0, 123, 255, 0.3);
+}
+
+/* --- Тёмная тема --- */
+[data-theme="dark"] {
+  --footer-bg: linear-gradient(135deg, #1e1e1e, #2c2c2c, #383838);
+  --footer-text: #eaeaea;
+  --footer-accent: #4dabf7;
+  --footer-accent-hover: #339af0;
+  --footer-link: #aaa;
+  --footer-link-hover: #60a5fa;
+  --footer-shadow: rgba(0, 0, 0, 0.6);
+  --social-bg: rgba(255, 255, 255, 0.05);
+  --social-hover-bg: rgba(77, 171, 247, 0.3);
+  --social-hover-shadow: rgba(77, 171, 247, 0.5);
+  --btn-bg: linear-gradient(135deg, #22c55e, #16a34a);
+  --btn-hover-bg: linear-gradient(135deg, #16a34a, #15803d);
+  --btn-shadow: rgba(34, 197, 94, 0.4);
+}
+
+/* --- Применение переменных --- */
+.footer {
+  position: relative;
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 60px 0 40px;
+  overflow: hidden;
+  box-shadow: 0 -4px 15px var(--footer-shadow);
+  transition: all 0.3s ease;
+}
+
+.footer .container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.footer-col h4 {
+  color: var(--footer-accent);
+}
+
+.footer-col h4::after {
+  background: var(--footer-accent);
+}
+
+.footer-col p,
+.footer-col a {
+  color: var(--footer-link);
+}
+
+.footer-col a:hover {
+  color: var(--footer-link-hover);
+}
+
+.social-btn {
+  background: var(--social-bg);
+}
+
+.social-btn:hover {
+  background: var(--social-hover-bg);
+  box-shadow: 0 0 12px var(--social-hover-shadow);
+}
+
+.phone_number_save {
+  background: var(--btn-bg);
+  box-shadow: 0 4px 15px var(--btn-shadow);
+}
+
+.phone_number_save:hover {
+  background: var(--btn-hover-bg);
+}
+
+.phone_number_save:disabled {
+  background: #555;
+  cursor: not-allowed;
+  box-shadow: none;
+}

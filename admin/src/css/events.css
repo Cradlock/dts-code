@@ -1,0 +1,329 @@
+/* Общие стили контейнера */
+.event-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #fff;
+}
+
+/* Секция поиска */
+.event-search {
+    display: flex;
+    margin-bottom: 20px;
+}
+.event-search input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+}
+.event-search button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #d32f2f; /* красный */
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+.event-search button:hover {
+    background-color: #b71c1c;
+}
+
+/* Список событий */
+.event-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Карточка события */
+.event-box {
+    min-width: 350px;
+    flex: 1 1 250px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: relative;
+}
+.event-box-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.event-box-date {
+    font-size: 14px;
+    color: #999;
+}
+.event-box-action {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+.event-box-action button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #d32f2f; /* красный */
+}
+.event-box-action button:hover {
+    color: #b71c1c;
+}
+
+/* Модальные окна */
+#modal-event {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+#modal-event-inner {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Формы */
+.event-add-box,
+.event-edit-box,
+.event-delete-box,
+.event-detail-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.event-add-box form,
+.event-edit-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.event-add-box input[type="text"],
+.event-edit-box input[type="text"],
+.event-add-box textarea,
+.event-edit-box textarea {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* Контейнер для редактирования события */
+.event-edit-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Форма */
+.event-edit-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Поля формы */
+.event-edit-box input[type="text"],
+.event-edit-box textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Галерея */
+.gallery-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Каждый элемент галереи */
+.gallery-img {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Скрываем input файла */
+.gallery-img input[type="file"] {
+    display: none;
+}
+
+/* Картинка превью */
+.gallery-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Кнопки поверх картинки */
+.gallery-img label,
+.gallery-img button {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    padding: 2px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Кнопка редактирования — верхний левый угол */
+.gallery-img label {
+    top: 5px;
+    left: 5px;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    color: #d32f2f; /* красный цвет для редактирования */
+}
+
+/* Кнопка удаления — верхний правый угол */
+.gallery-img button {
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    border: none;
+    color: #fff;
+    background-color: #d32f2f;
+}
+
+/* При наведении делаем кнопки чуть ярче */
+.gallery-img button:hover {
+    background-color: #b71c1c;
+}
+.gallery-img label:hover {
+    background-color: rgba(211, 47, 47, 0.9);
+    color: #fff;
+}
+
+
+.gallery-img.deleted img {
+    z-index: -1;
+}
+
+/* Кнопки редактирования/удаления на фото */
+.gallery-img label,
+.gallery-img button {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    padding: 2px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Верхний левый угол — редактирование */
+.gallery-img label {
+    top: 5px;
+    left: 5px;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    color: #d32f2f;
+}
+
+/* Верхний правый угол — удаление */
+.gallery-img button {
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    border: none;
+    color: #fff;
+    background-color: #d32f2f;
+}
+.gallery-img button:hover {
+    background-color: #b71c1c;
+}
+
+.gallery-add{
+    width: 45px;
+    height: 45px;
+    background-color: red;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-add{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 15px;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+
+}
+
+.event-add button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.event-add button svg {
+    display: block; 
+}
+
+
+.event-datetimes{
+    display: flex;
+    justify-content: space-around;
+}
+.event-datetimes input {
+    display: none;
+}
+
+.event-datetimes label {
+  display: flex;
+  font-size: medium;
+  align-items: center;
+  color: #999;
+}
+.date-icon {
+  background-color: #4caf50; /* зелёный фон */
+  color: white;              /* цвет самой иконки */
+  border-radius: 50%;        /* круглая */
+  padding: 6px;              /* отступ внутри круга */
+  font-size: 24px;           /* размер иконки */
+}

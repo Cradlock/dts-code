@@ -1,0 +1,43 @@
+@charset "UTF-8";
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px; /* можно изменить под контент */
+  gap: 12px;
+  color: #00eaff;
+  font-family: "Orbitron", sans-serif;
+  text-transform: uppercase;
+}
+
+/* сам спинер */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(0, 234, 255, 0.2);
+  border-top: 5px solid #00eaff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 10px rgba(0, 234, 255, 0.3);
+}
+
+/* анимация вращения */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* 📱 адаптив — уменьшаем спинер на телефонах */
+@media (max-width: 600px) {
+  .spinner {
+    width: 45px;
+    height: 45px;
+    border-width: 4px;
+  }
+  .spinner-container p {
+    font-size: 0.9rem;
+  }
+}
+
+/*# sourceMappingURL=spiner.css.map */

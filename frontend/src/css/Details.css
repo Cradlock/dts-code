@@ -1,0 +1,111 @@
+/* --- Светлая тема (по умолчанию) --- */
+:root {
+  --bg-color: #f9fafb;
+  --container-bg: #fff;
+  --text-color: #111827;
+  --text-secondary: #6b7280;
+  --price-color: #16a34a;
+  --input-bg: #fff;
+  --input-border: #d1d5db;
+  --button-bg: #16a34a;
+  --button-hover: #15803d;
+  --gallery-border-hover: #22c55e;
+  --desc-bg: #f9fafb;
+  --desc-text: #374151;
+  --back-link: #2563eb;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* --- Тёмная тема --- */
+[data-theme="dark"] {
+  --bg-color: #1e1e1e;
+  --container-bg: #2b2b2b;
+  --text-color: #eaeaea;
+  --text-secondary: #aaa;
+  --price-color: #4ade80;
+  --input-bg: #3a3a3a;
+  --input-border: #555;
+  --button-bg: #4ade80;
+  --button-hover: #22c55e;
+  --gallery-border-hover: #22c55e;
+  --desc-bg: #2b2b2b;
+  --desc-text: #ccc;
+  --back-link: #60a5fa;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+/* --- Применение переменных --- */
+.details-page {
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  background: var(--bg-color);
+  transition: background 0.3s, color 0.3s;
+}
+
+.details-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+  background: var(--container-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 25px var(--shadow-color);
+  padding: 30px;
+  transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+}
+
+.main-image {
+  background-color: var(--container-bg);
+}
+
+.gallery-img:hover {
+  border: 2px solid var(--gallery-border-hover);
+}
+
+.info-section h1 {
+  color: var(--text-color);
+}
+
+.price {
+  color: var(--price-color);
+}
+
+.category {
+  color: var(--text-secondary);
+}
+
+.quantity-selector input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-color);
+}
+
+.add-cart-btn {
+  background: var(--button-bg);
+  color: #fff;
+}
+
+.add-cart-btn:hover {
+  background: var(--button-hover);
+}
+
+.desc-block {
+  background: var(--desc-bg);
+  color: var(--desc-text);
+}
+
+.back-link a {
+  color: var(--back-link);
+}
+
+/* Адаптив остаётся прежним, просто добавляем плавность переходов */
+.details-container,
+.main-image,
+.gallery-img,
+.info-section,
+.desc-block,
+.add-cart-btn {
+  transition: all 0.3s ease;
+}

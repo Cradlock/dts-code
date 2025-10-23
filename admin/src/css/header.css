@@ -1,0 +1,37 @@
+header{
+    width: 100%;
+    padding: 0px;
+    background-color: rgb(193, 32, 32);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header_pages button{
+    background-color: transparent;
+    color: white;
+    border: transparent;
+    font-size: medium;
+    padding: 20px;
+}
+.header_pages button:hover{
+    transition: 0.5s ease;
+    background: rgba(0,0,0,0.4);
+}
+
+.header_pages a{
+    color: transparent;
+}
+
+.header_icon{
+    width: 35px;
+    height: 35px;
+    border-radius: 25px;
+    padding: 10px;
+    color: white;
+}
+.header_icon:hover{
+    transition: 0.6s ease;
+    background-color: white;
+    color: red;
+}

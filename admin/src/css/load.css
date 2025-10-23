@@ -1,0 +1,29 @@
+.loader-container {
+  width: 100%;         /* растягивается на всю ширину родителя */
+  height: 100vh;
+  position: fixed;         /* высота полоски */
+  background: gray;    /* фон под анимацией */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-bar {
+  width: 50px;          /* размер спиннера */
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid white;         /* сама рамка */
+  border-top: 5px solid transparent; /* верхняя часть прозрачная для эффекта вращения */
+  animation: spin 1s linear infinite; /* анимация */
+}
+
+/* Анимация вращения */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

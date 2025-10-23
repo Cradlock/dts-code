@@ -1,0 +1,173 @@
+
+.product_add_modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  padding: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: Arial, sans-serif;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Кнопка закрытия */
+.product_add_modal > button {
+  align-self: flex-end;
+  background: #e53935;
+  border: none;
+  color: #fff;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.product_add_modal > button:hover {
+  background: #c62828;
+}
+
+/* Форма */
+.product_add_modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.product_add_modal input,
+.product_add_modal select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.product_add_modal input:focus,
+.product_add_modal select:focus {
+  border-color: #e53935;
+}
+
+/* Превью обложки */
+.product_add_modal img {
+  border-radius: 8px;
+  object-fit: cover;
+  margin-top: 8px;
+  border: 1px solid #eee;
+}
+
+/* Галерея */
+.product_modal_form_gallery {
+  border: 1px dashed #e53935;
+  border-radius: 8px;
+  padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+
+
+}
+
+.product_modal_form_gallery > label {
+  display: inline-block;
+  cursor: pointer;
+  background: #e53935;
+  color: #fff;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+.product_modal_form_gallery > label:hover {
+  background: #c62828;
+}
+
+.product_modal_form_gallery_elem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.product_modal_form_gallery_elem img {
+  border-radius: 6px;
+}
+
+.product_modal_form_gallery_elem label,
+.product_modal_form_gallery_elem button {
+  background: #fff;
+  border: 1px solid #e53935;
+  color: #e53935;
+  border-radius: 50%;
+  padding: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.product_modal_form_gallery_elem label:hover,
+.product_modal_form_gallery_elem button:hover {
+  background: #e53935;
+  color: #fff;
+}
+
+/* Описание */
+.product_modal_form_desc_add,
+.product_modal_form_desc_edit_elem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product_modal_form_desc_add button,
+.product_modal_form_desc_edit_elem button {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.product_modal_form_desc_add button:hover,
+.product_modal_form_desc_edit_elem button:hover {
+  background: #c62828;
+}
+
+/* Кнопка Add */
+.product_add_modal form > button[type="submit"] {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.product_add_modal form > button[type="submit"]:hover {
+  background: #c62828;
+}
+
+/* --- Адаптив --- */
+@media (max-width: 480px) {
+  .product_add_modal {
+    padding: 15px;
+    width: 95%;
+  }
+
+  .product_modal_form_desc_add,
+  .product_modal_form_desc_edit_elem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product_modal_form_gallery_elem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

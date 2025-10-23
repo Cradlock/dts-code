@@ -1,0 +1,149 @@
+/* --- Светлая тема (по умолчанию) --- */
+:root {
+  --bg-color: #f8f9fb;
+  --text-color: #222;
+  --text-secondary: #444;
+  --accent-color: #007bff;
+  --accent-hover: #0056b3;
+  --button-bg: #007bff;
+  --button-hover: #0056b3;
+  --reset-bg: #ff4d4d;
+  --reset-hover: #d93b3b;
+  --filter-bg: #fff;
+  --card-bg: #fff;
+  --card-shadow: rgba(0, 0, 0, 0.07);
+  --badge-sale: #ff4747;
+  --badge-new: #00b894;
+  --pagination-bg: #e9ecef;
+  --pagination-active: #007bff;
+  --pagination-active-color: #fff;
+  --error-color: #e74c3c;
+  --input-bg: #fff;
+  --input-border: #ccc;
+}
+
+/* --- Тёмная тема --- */
+[data-theme="dark"] {
+  --bg-color: #1e1e1e;
+  --text-color: #eaeaea;
+  --text-secondary: #ccc;
+  --accent-color: #4dabf7;
+  --accent-hover: #339af0;
+  --button-bg: #4dabf7;
+  --button-hover: #339af0;
+  --reset-bg: #ff6666;
+  --reset-hover: #d93b3b;
+  --filter-bg: #2b2b2b;
+  --card-bg: #2b2b2b;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --badge-sale: #ff5f5f;
+  --badge-new: #00d48f;
+  --pagination-bg: #3a3a3a;
+  --pagination-active: #4dabf7;
+  --pagination-active-color: #fff;
+  --error-color: #ff6b6b;
+  --input-bg: #3a3a3a;
+  --input-border: #555;
+}
+
+/* --- Применение переменных --- */
+.catalog {
+  font-family: "Inter", sans-serif;
+  color: var(--text-color);
+  padding: 20px;
+  background: var(--bg-color);
+  transition: background 0.3s, color 0.3s;
+}
+
+.catalog-header h1 {
+  color: var(--text-color);
+}
+
+.catalog-header button {
+  background: var(--button-bg);
+  color: #fff;
+}
+
+.catalog-header button:hover {
+  background: var(--button-hover);
+}
+
+.reset-btn {
+  background: var(--reset-bg) !important;
+}
+
+.reset-btn:hover {
+  background: var(--reset-hover) !important;
+}
+
+.filters-panel {
+  background: var(--filter-bg);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px var(--card-shadow);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.filters-panel input,
+.filters-panel select {
+  background: var(--input-bg);
+  border: 1.5px solid var(--input-border);
+  color: var(--text-color);
+}
+
+.category-filter button,
+.brand-filter button {
+  background: var(--filter-bg);
+  color: var(--text-color);
+}
+
+.category-filter button.selected,
+.brand-filter button.selected {
+  background: var(--button-bg);
+  color: #fff;
+}
+
+.products-grid,
+.products-list {
+  transition: background 0.3s;
+}
+
+.product-card {
+  background: var(--card-bg);
+  box-shadow: 0 6px 16px var(--card-shadow);
+  transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.product-card h3,
+.product-card p {
+  color: var(--text-color);
+}
+
+.product-card button {
+  background: var(--button-bg);
+}
+
+.product-card button:hover {
+  background: var(--button-hover);
+}
+
+.sale-badge {
+  background: var(--badge-sale);
+}
+
+.new-badge {
+  background: var(--badge-new);
+}
+
+.pagination button {
+  background: var(--pagination-bg);
+  color: var(--text-color);
+}
+
+.pagination button.active {
+  background: var(--pagination-active);
+  color: var(--pagination-active-color);
+}
+
+.error {
+  color: var(--error-color);
+}

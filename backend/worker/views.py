@@ -1,0 +1,397 @@
+from django.conf import settings
+from django.http import JsonResponse
+from django.shortcuts import render
+from custom_auth.models import *
+from django.db.models import F,Q
+from django.utils.timezone import now
+from rest_framework import generics
+from rest_framework import mixins,viewsets
+from custom_auth.s import *
+from custom_auth.models import *
+from custom_auth.lib import is_authenticate,is_admin,CustomPermClass,get_id
+from custom_auth.models import Info
+from custom_auth.s import Info_s
+from rest_framework.response import Response
+from django.http import HttpResponse,JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
+from django.utils.dateparse import parse_datetime
+import json
+
+
+
+def refresh_products(request):
+    if request.method != "GET":
+        return JsonResponse({"error":"Method not allowed"},status=405)
+        
+    now_time = now()
+    updated_products = 0
+
+    categories = Category.objects.filter(last_update__lt = now_time - F("range_update"))
+    
+    for cat in categories:
+        outdated_products = Product.objects.filter(
+            category=cat,
+            last_buy__lt=now_time - cat.range_update
+        )
+
+        count = outdated_products.update(
+            discount=cat.discount
+        )
+
+        updated_products += count 
+
+        cat.last_update = now_time
+        cat.save(update_fields=["last_update"])
+
+    return JsonResponse({"updated_products":updated_products},status=200)
+
+def refresh_events(request):
+    if request.method != "GET":
+        return JsonResponse({"error":"Method not allowed"},status=405)
+    
+
+    events_active = Event.objects.filter(date_start__lt = F("date_end"))
+
+    events_deactive = Event.objects.filter(date_start__gte = F("date_end"))
+    
+    active_events = list(events_active.values())
+    deactive_events = list(events_deactive.values())
+
+    events_deactive.delete()
+
+    for event in events_active:
+        q = Q()
+        if event.categories.exists():
+            q |= Q(category__in=event.categories.all())
+        if event.brands.exists():
+            q |= Q(brand__in=event.brands.all())
+        if not q:
+            continue
+
+        products = Product.objects.filter(q)
+        products.update(discount=event.discount_precent)
+
+    return JsonResponse({"active":active_events,"deactivate":deactive_events},status=200)
+    
+
+    
+
+
+
+
+
+
+# Events
+
+class EventListView(generics.ListAPIView):
+    serializer_class = Event_s
+
+    def get_queryset(self):
+        queryset = Event.objects.all()
+        is_spec = self.request.query_params.get("is_spec", None)  # получаем GET-параметр
+
+        if is_spec is not None:
+            # приводим строку к булевому значению
+            if is_spec.lower() == "true":
+                queryset = queryset.filter(discount_precent__gt=10)
+            elif is_spec.lower() == "false":
+                queryset = queryset.filter(discount_precent__lte=10)
+        else:
+            # если параметр не указан, возвращаем последние добавленные
+            queryset = queryset.order_by('-date_start')  # предполагаем, что есть поле created_at
+
+        return queryset
+
+class EventDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = Event_s
+    queryset = Event.objects.all()
+
+
+
+@csrf_exempt
+def addEvent(request):
+    # --- Проверка прав доступа ---
+    if not is_admin(request):
+        return HttpResponse("Forbidden", status=403)
+
+    if request.method != "POST":
+        return HttpResponse("Method Not Allowed", status=405)
+
+    try:
+        # --- Основные данные ---
+        title = request.POST.get("title", "").strip()
+        desc = request.POST.get("desc", "").strip()
+        discount_precent = float(request.POST.get("discount_precent", 1.0))
+        is_special = request.POST.get("is_special") == "true"
+        type_special = request.POST.get("type_special", "").strip() or None
+
+        # --- Проверяем даты ---
+        date_start = parse_datetime(request.POST.get("date_start") or "")
+        date_end = parse_datetime(request.POST.get("date_end") or "")
+
+        if not title:
+            return JsonResponse({"error": "Поле title обязательно"}, status=400)
+        if not date_start:
+            return JsonResponse({"error": "Поле date_start обязательно и должно быть валидной датой"}, status=400)
+
+        # --- ManyToMany ---
+        brand_ids = request.POST.getlist("brands")
+        category_ids = request.POST.getlist("categories")
+
+        brands = Brand.objects.filter(id__in=brand_ids)
+        categories = Category.objects.filter(id__in=category_ids)
+
+        # --- Создание события ---
+        event = Event.objects.create(
+            title=title,
+            desc=desc,
+            discount_precent=discount_precent,
+            is_special=is_special,
+            type_special=type_special,
+            date_start=date_start,
+            date_end=date_end,
+        )
+
+        # --- Связи ManyToMany ---
+        if brands.exists():
+            event.brands.set(brands)
+        if categories.exists():
+            event.categories.set(categories)
+
+        # --- Галерея ---
+        images_gallery = request.FILES.getlist("gallery")
+        for img in images_gallery:
+            GalleryEvent.objects.create(file=img, event_id=event)
+
+        return JsonResponse(Event_s(event, context={'request': request}).data, status=201)
+
+    except ValueError as e:
+        return JsonResponse({"error": f"Ошибка данных: {str(e)}"}, status=400)
+    except Exception as e:
+        return JsonResponse({"error": f"Ошибка сервера: {str(e)}"}, status=500)
+
+def editEvent(request, id):
+    if not is_admin(request):
+        return HttpResponse("Forbidden", status=403)
+
+    if request.method != "POST":
+        return HttpResponse("Method not allowed", status=405)
+
+    event = Event.objects.filter(id=id).first()
+    if not event:
+        return JsonResponse({"error": "Event not found"}, status=404)
+
+    # Обновляем поля
+    title = request.POST.get("title")
+    if title is not None:
+        event.title = title
+
+    desc = request.POST.get("desc")
+    if desc is not None:
+        event.desc = desc
+
+    discount_precent = request.POST.get("discount_precent")
+    if discount_precent is not None:
+        try:
+            event.discount_precent = float(discount_precent)
+        except ValueError:
+            return JsonResponse({"error": "Invalid discount_precent"}, status=400)
+
+    is_special = request.POST.get("is_special")
+    if is_special is not None:
+        event.is_special = is_special.lower() == "true"
+
+    type_special = request.POST.get("type_special")
+    if type_special is not None:
+        event.type_special = type_special
+
+    date_start = request.POST.get("date_start")
+    if date_start:
+        event.date_start = date_start
+    else:
+        event.date_start = None
+    
+    date_end = request.POST.get("date_end")
+    if date_end:
+        event.date_end = date_end
+    else:
+        event.date_end = None
+
+    # Обновление ManyToMany
+    brand_ids = request.POST.getlist("brands")
+    brands = Brand.objects.filter(id__in=brand_ids)
+    event.brands.set(brands)
+
+    category_ids = request.POST.getlist("categories")
+    categories = Category.objects.filter(id__in=category_ids)
+    event.categories.set(categories)
+
+    # Работа с галереей
+    deleted_gallery = request.POST.getlist("deleted_gallery")
+    for idx in deleted_gallery:
+        try:
+            img = GalleryEvent.objects.get(pk=int(idx))
+            img.file.delete(save=False)
+            img.delete()
+        except GalleryEvent.DoesNotExist:
+            pass
+
+    new_images = request.FILES.getlist("gallery")
+    for img in new_images:
+        GalleryEvent.objects.create(file=img, event_id=event)
+
+    event.save()
+    return JsonResponse({"data": Event_s(event, context={'request': request}).data}, status=200)
+
+
+def deleteEvent(request, id):
+    if not is_admin(request):
+        return HttpResponse("Forbidden", status=403)
+    
+    if request.method != "GET":
+        return HttpResponse("Method not allowed", status=405)
+
+    product = Event.objects.filter(id=id).first()
+    if not product:
+        return JsonResponse({"error": "Product not found"}, status=404)
+
+    galleries = GalleryEvent.objects.filter(event_id=product)
+    for g in galleries:
+        if g.file:  
+            g.file.delete(save=False)
+    galleries.delete()
+
+
+    product.delete()
+
+    return JsonResponse({"message": "Product deleted successfully"}, status=200)
+
+
+
+
+
+
+def check_cheque(request,uuid):
+    obj = Cheque.objects.filter(id=uuid).first()
+    if not obj:
+        return HttpResponse("Not check",status=400)
+    
+    return JsonResponse(Cheque_s(obj).data,status=200)
+    
+
+
+
+def create_order(request):
+    user = is_authenticate(request)
+    if not user:
+        return HttpResponse("Forbidden", status=403)
+
+    if request.method != "GET":
+        return HttpResponse("Method not allowed", status=405)
+
+    # --- 🔹 Проверка: есть ли уже заказ у пользователя ---
+    existing_order = Order.objects.filter(user=user).first()
+    if existing_order:
+        return JsonResponse({
+            "data": "У вас уже есть активный заказ",
+            "order_id": existing_order.id
+        }, status=400)
+
+    # --- Проверка наличия товаров в корзине ---
+    order_items = OrderItem.objects.filter(user=user)
+    if not order_items.exists():
+        return JsonResponse({"data": "No items in bucket"}, status=400)
+
+    # --- Проверка номера клиента ---
+    client_number = request.GET.get("client_number")
+    if not client_number:
+        return JsonResponse({"data": "Not number"}, status=400)
+
+    # --- Формирование списка товаров ---
+    product_list = []
+    summa = 0
+    for item in order_items:
+        product_info = {
+            "id": item.product.id,
+            "title": item.product.title,
+            "price": (item.count * item.product.price) - (item.count * item.product.price * item.product.discount / 100 ),
+            "count": item.count
+        }
+        product_list.append(product_info)
+        summa += product_info["price"]
+
+    # --- Выдача кассира ---
+    info_instance = Info_s(Info.objects.first())
+    cashier_number = info_instance.get_random_cashier_number(Info.objects.first())
+    # --- Создание заказа ---
+    obj = Order.objects.create(
+        client_number=client_number,
+        user=user,
+        created_date=timezone.now(),
+        products=product_list,
+        total_price=summa,
+        cashier_number=cashier_number
+    )
+
+    # --- Очистка корзины ---
+    order_items.delete()
+
+    # Сериализуем объект
+    serializer = Order_s(obj)
+
+    return JsonResponse({
+        "order": serializer.data
+    }, status=200)
+
+
+def set_order(request):
+    if not is_admin(request):
+        return HttpResponse("Foribbden",status=403)
+
+    if request.method != "POST":
+        return HttpResponse("Method not alowed",status=400) 
+
+
+    id_order = request.POST.get("order")
+    if id_order is None:
+        return HttpResponse("Data not enough",status=400)
+    
+    order = Order.objects.filter(pk=id_order).first()
+    if not order:
+        return HttpResponse("Not order",status=400)
+    
+
+    obj = Cheque(created_date=timezone.now(),products=order.products,price=order.total_price,client=order.user)
+
+
+    order.delete()
+
+    return JsonResponse(Cheque_s(obj).data,status=200)
+
+
+def cancel_order(request):
+    user = is_authenticate(request)
+    if not user:
+        return HttpResponse("Forbidden", status=403)
+
+    if request.method != "GET":
+        return HttpResponse("Method not allowed", status=405)
+    
+    existing_orders = Order.objects.filter(user=user)
+    if not existing_orders.exists():
+        return JsonResponse({"data": "Нет активных заказов"}, status=400)
+
+    # --- Удаляем все заказы пользователя ---
+    count, _ = existing_orders.delete()
+
+    return JsonResponse({
+        "data": f"Отменено {count} заказ(ов)"
+    }, status=200)
+
+
+class OrdersViewList(generics.ListAPIView):
+    permission_classes = [CustomPermClass,]
+    serializer_class = Order_s
+    queryset = Order.objects.all()
+

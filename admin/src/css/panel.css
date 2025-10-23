@@ -1,0 +1,233 @@
+.panel-container {
+    background-color: #fff;
+    color: #d32f2f;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+
+}
+
+.panel-category, .panel-brands {
+    margin-bottom: 20px;
+    border: 1px solid #d32f2f;
+    padding: 15px;
+    border-radius: 8px;
+
+
+}
+
+.panel-category-elem, .panel-brand-elem {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    border: 3px solid #d32f2f;
+    justify-content: center;
+    width: fit-content;
+    padding: 15px;
+}
+
+.panel-category-list,.panel-brand-list{
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;      
+        overflow-x: auto;         
+    scroll-snap-type: x mandatory; 
+    -webkit-overflow-scrolling: touch;
+}
+
+.panel-category-elem form, .panel-brand-elem form{
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    gap: 10px;
+    flex: 0 0 250px;
+    scroll-snap-align: start;
+}
+
+.panel-category-elem input, .panel-brand-elem input {
+    padding: 5px;
+    border: 1px solid #d32f2f;
+    border-radius: 4px;
+    color: #d32f2f;
+}
+
+.panel-category-elem button, .panel-brand-elem button,
+.panel-category-add button, .panel-brand-add button {
+    background-color: #d32f2f;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.panel-category-add, .panel-brand-add {
+    margin-top: 10px;
+}
+
+.panel-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.panel-modal-content {
+    background-color: #fff;
+    color: #d32f2f;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    position: relative;
+}
+
+.panel-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #d32f2f;
+    font-size: 18px;
+
+}
+
+.panel-modal-content input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #d32f2f;
+    border-radius: 4px;
+}
+
+.panel-modal-content form button {
+    background-color: #d32f2f;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+/* ---------------------------------------------------------- */
+/* Общий контейнер */
+.panel-siteInfo {
+    background-color: #fff;
+    color: #d32f2f;
+    border: 1px solid #d32f2f;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Блок логотипа и названия сайта */
+.panel-site-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+/* Скрываем input type=file */
+.panel-site-logo input[type="file"] {
+    display: none;
+}
+
+/* Лейбл для файла (картинка или иконка) */
+.panel-site-logo label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #d32f2f;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Картинка внутри лейбла */
+.panel-site-logo label img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Иконка, если логотип отсутствует */
+.panel-site-logo label svg {
+    font-size: 36px;
+    color: #d32f2f;
+}
+
+/* Инпут для названия сайта */
+.panel-site-logo input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #d32f2f;
+    border-radius: 5px;
+    color: #d32f2f;
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Блок с контактной информацией */
+.panel-site-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Внутренние div-обертки для инпутов */
+.panel-site-text > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Инпуты контактной информации */
+.panel-site-text input {
+    flex: 1;
+    padding: 6px 8px;
+    border: 1px solid #d32f2f;
+    border-radius: 5px;
+    color: #d32f2f;
+}
+
+/* Инпуты при фокусе */
+.panel-site-text input:focus,
+.panel-site-logo input[type="text"]:focus {
+    outline: none;
+    border-color: #b71c1c;
+    box-shadow: 0 0 3px #b71c1c;
+}
+
+/* Отдельно можно добавить hover для лейбла логотипа */
+.panel-site-logo label:hover {
+    background-color: rgba(211, 47, 47, 0.1);
+}
+
+/* Кнопка сохранения формы, если есть */
+.panel-siteInfo button {
+    background-color: #d32f2f;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.panel-siteInfo button:hover {
+    background-color: #b71c1c;
+}

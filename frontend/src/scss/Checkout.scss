@@ -1,0 +1,161 @@
+.checkout {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #222;
+}
+
+h2 {
+  font-size: 20px;
+  margin: 20px 0 10px;
+  color: #333;
+  border-left: 4px solid #007bff;
+  padding-left: 8px;
+}
+
+.cart ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart li {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 15px;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
+
+.cart li span:first-child {
+  font-weight: 500;
+}
+
+.cart input[type="number"] {
+  width: 60px;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.cart button {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cart button:hover {
+  background: #c82333;
+}
+
+.order-form {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.order-form input,
+.order-form textarea,
+.order-form select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.order-form input:focus,
+.order-form textarea:focus,
+.order-form select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.4);
+}
+
+.order-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.order-form label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.promo {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.promo input {
+  flex: 1;
+}
+
+.promo button {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.promo button:hover {
+  background: #218838;
+}
+
+.summary {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  font-size: 17px;
+}
+
+.summary p {
+  margin: 5px 0;
+}
+
+.total {
+  font-weight: bold;
+  font-size: 22px;
+  color: #28a745;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background: #0056b3;
+}

@@ -1,0 +1,53 @@
+# Игнорировать виртуальные окружения и env файлы во всех подпапках
+**/.env
+**/.env.*
+**/env/
+**/venv/
+**/ENV/
+
+# Python cache и скомпилированные файлы
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+
+# Django миграции
+**/migrations/*.pyc
+**/migrations/*.py[cod]
+**/migrations/__pycache__/
+
+# Базы данных SQLite
+**/*.sqlite3
+
+# Логи
+**/*.log
+
+# Статичные файлы и медиа (относительно каждого приложения)
+**/staticfiles/
+**/media/
+
+# Node.js зависимости (во всех React папках)
+**/node_modules/
+
+# React билд output
+**/build/
+**/dist/
+
+# VSCode
+.vscode/
+
+# MacOS системные файлы
+.DS_Store
+
+# Временные файлы
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Docker (если нужно игнорировать оверрайды)
+docker-compose.override.yml

@@ -1,0 +1,182 @@
+/* Основной контейнер модалки */
+.edit_modal_container {
+  background-color: #fff;
+  color: #b30000; /* Темно-красный текст */
+  max-width: 800px;
+  width: 90%;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+}
+
+.edit_modal_container button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #b30000;
+  font-size: 1.2rem;
+}
+
+.edit_modal_container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Лейблы и инпуты */
+.edit_modal_container label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.edit_modal_container input[type="text"],
+.edit_modal_container input[type="number"],
+.edit_modal_container select {
+  margin-top: 0.3rem;
+  padding: 0.5rem;
+  border: 1px solid #b30000;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Скрываем стандартные input file */
+input[type="file"] {
+  display: none;
+}
+
+/* Кастомные кнопки для файлов */
+label[for="file-upload"],
+label[for^="img_file_setter_"],
+button.cover-btn {
+  display: inline-block;
+  background-color: #b30000;
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  margin-top: 0.5rem;
+}
+
+label[for="file-upload"]:hover,
+label[for^="img_file_setter_"]:hover,
+button.cover-btn:hover {
+  background-color: #ff1a1a;
+}
+
+/* Кнопка сохранения */
+.edit_modal_container button[type="submit"] {
+  background-color: #b30000;
+  color: #fff;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit_modal_container button[type="submit"]:hover {
+  background-color: #ff1a1a;
+}
+
+/* Секция описаний */
+.product_modal_form_desc {
+  border: 1px solid #b30000;
+  padding: 0.5rem;
+  border-radius: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.product_modal_form_desc_add {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.product_modal_form_desc_list .product_modal_form_desc_edit_elem {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+/* Галерея */
+.product_modal_gallery_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.product_modal_gallery_elem_nd,
+.product_modal_gallery_elem_d {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #b30000;
+  border-radius: 5px;
+  padding: 0.3rem;
+}
+
+.product_modal_gallery_elem_d {
+  opacity: 0.4;
+}
+
+.product_modal_gallery_elem_nd img,
+.product_modal_gallery_elem_d img {
+  margin-top: 0.3rem;
+  border-radius: 3px;
+}
+
+.product_gallery_img_control {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.3rem;
+}
+
+.product_modal_gallery_add {
+  margin-top: 0.5rem;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .edit_modal_container {
+    padding: 1rem;
+  }
+
+  .product_modal_form_desc_add,
+  .product_modal_form_desc_list .product_modal_form_desc_edit_elem {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .product_modal_gallery_list {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit_modal_container {
+    width: 95%;
+    padding: 0.8rem;
+  }
+
+  .edit_modal_container input[type="text"],
+  .edit_modal_container input[type="number"],
+  .edit_modal_container select {
+    font-size: 0.9rem;
+  }
+
+  .edit_modal_container button[type="submit"],
+  label[for="file-upload"],
+  label[for^="img_file_setter_"],
+  button.cover-btn {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.9rem;
+  }
+}

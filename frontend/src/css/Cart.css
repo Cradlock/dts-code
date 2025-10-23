@@ -1,0 +1,128 @@
+/* --- Светлая тема (по умолчанию) --- */
+:root {
+  --bg-color: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  --container-bg: #fff;
+  --text-color: #222;
+  --text-secondary: #555;
+  --accent-color: #4facfe;
+  --accent-hover: #00f2fe;
+  --input-bg: #f9f9f9;
+  --border-color: #ccc;
+  --remove-color: #ff5555;
+  --summary-color: #0078ff;
+  --modal-bg: rgba(0, 0, 0, 0.55);
+  --modal-content-bg: #fff;
+}
+
+/* --- Тёмная тема --- */
+[data-theme="dark"] {
+  --bg-color: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+  --container-bg: #2b2b2b;
+  --text-color: #eaeaea;
+  --text-secondary: #aaa;
+  --accent-color: #4dabf7;
+  --accent-hover: #339af0;
+  --input-bg: #3a3a3a;
+  --border-color: #555;
+  --remove-color: #ff6666;
+  --summary-color: #4dabf7;
+  --modal-bg: rgba(0, 0, 0, 0.75);
+  --modal-content-bg: #1e1e1e;
+}
+
+/* --- Применение переменных --- */
+.cart-page {
+  padding: 50px 20px;
+  background: var(--bg-color);
+  min-height: 100vh;
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+  transition: background 0.4s, color 0.4s;
+}
+
+.cart-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.empty {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #888;
+}
+
+.cart-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--container-bg);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, color 0.3s;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 0;
+  position: relative;
+  gap: 20px;
+}
+
+.cart-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.cart-details h3 {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.price-tag {
+  color: var(--text-secondary);
+}
+
+.qty-control button {
+  background: var(--accent-color);
+  color: white;
+}
+
+.qty-control button:hover {
+  background: var(--accent-hover);
+}
+
+.qty-control input {
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.remove-btn {
+  color: var(--remove-color);
+}
+
+.summary-total {
+  color: var(--summary-color);
+}
+
+.checkout-btn {
+  background: linear-gradient(90deg, var(--accent-hover), var(--accent-color));
+}
+
+.modal-container {
+  background: var(--modal-bg);
+}
+
+.modal-content {
+  background: var(--modal-content-bg);
+  color: var(--text-color);
+}

@@ -1,0 +1,54 @@
+/* Общий контейнер */
+.verify-email-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f0f4f8; /* светлый фон */
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Сообщение о ссылке */
+.verify-email-page h1 {
+  font-size: 1.5rem;
+  color: #1e3a8a; /* насыщенный синий */
+  margin-bottom: 20px;
+}
+
+/* Форма */
+.verify-email-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Поле ввода */
+.verify-email-page input[type="email"] {
+  padding: 12px 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.verify-email-page input[type="email"]:focus {
+  border-color: #1e40af; /* синий при фокусе */
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.2);
+  outline: none;
+}
+
+/* Кнопка */
+.verify-email-page button[type="submit"] {
+  padding: 12px 15px;
+  background-color: #facc15; /* желтый */
+  color: white;
+}

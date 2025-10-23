@@ -1,0 +1,91 @@
+/* Контейнер уведомления */
+.order-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  background: linear-gradient(135deg, #1e90ff, #ffd700); /* синий → жёлтый */
+  color: #000;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  z-index: 999;
+}
+
+/* Расширенное состояние */
+.order-notification.expanded {
+  max-height: 500px; /* чтобы анимация была видна */
+  padding: 15px;
+}
+
+/* Заголовок уведомления */
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  font-weight: bold;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Кнопка закрытия */
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #000;
+  transition: transform 0.2s ease;
+}
+
+.close-btn:hover {
+  transform: rotate(90deg);
+  color: #ff4500;
+}
+
+/* Содержимое уведомления */
+.notification-body {
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 0 0 12px 12px;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* Список товаров */
+.notification-body ul {
+  margin: 5px 0 10px 15px;
+  padding: 0;
+  list-style-type: disc;
+}
+
+.notification-body li {
+  margin-bottom: 5px;
+}
+
+/* Кнопка отмены */
+.notification-body button {
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.notification-body button:hover {
+  background-color: #ffd700;
+  color: #000;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}

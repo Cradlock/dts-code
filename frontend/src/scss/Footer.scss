@@ -1,0 +1,132 @@
+.footer {
+  position: relative;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  padding: 60px 0 40px;
+  overflow: hidden;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.footer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top left, rgba(0, 255, 255, 0.15), transparent 70%);
+  z-index: 0;
+}
+
+.footer .container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+.footer-col h4 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  background: linear-gradient(90deg, #00f2fe, #4facfe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.footer-col h4::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 2px;
+  background: #00f2fe;
+  margin-top: 8px;
+  border-radius: 5px;
+}
+
+.footer-col p,
+.footer-col a {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #ddd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+  color: #00f2fe;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.social-btn {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-3px);
+  background: rgba(0, 242, 254, 0.3);
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.5);
+}
+.phone_number_save {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.phone_number_save:hover {
+  background: linear-gradient(135deg, #0056d2, #00a3e0);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.phone_number_save:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.5);
+}
+
+.phone_number_save:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.instagram:hover {
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4);
+}
+.telegram:hover {
+  background: linear-gradient(45deg, #0088cc, #00bfff);
+}
+.whatsapp:hover {
+  background: linear-gradient(45deg, #25d366, #128c7e);
+}
+
+.copyright {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 20px;
+}

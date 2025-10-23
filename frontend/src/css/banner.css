@@ -1,0 +1,23 @@
+.banner {
+  position: relative;
+  background-image: url(../images/banner.png);
+  height: 520px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+/* Оверлей для светлой темы (необязательно, можно прозрачный) */
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0); /* прозрачный по умолчанию */
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+/* Тёмная тема — затемнение баннера */
+[data-theme="dark"] .banner::after {
+  background: rgba(0, 0, 0, 0.5); /* 50% тёмного оверлея */
+}

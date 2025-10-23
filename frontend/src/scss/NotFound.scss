@@ -1,0 +1,71 @@
+.notfound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #000;
+  color: #00eaff;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.notfound h1 {
+  font-size: 6rem;
+  margin: 0;
+  text-shadow: 0 0 15px #00eaff;
+}
+
+.notfound p {
+  font-size: 1.3rem;
+  margin: 10px 0 20px;
+  color: #b3e8ff;
+}
+
+.home-link {
+  padding: 10px 25px;
+  border: 2px solid #00eaff;
+  border-radius: 6px;
+  color: #00eaff;
+  text-decoration: none;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.home-link:hover {
+  background: #00eaff;
+  color: #000;
+}
+
+/* 📱 Адаптив под телефоны */
+@media (max-width: 768px) {
+  .notfound h1 {
+    font-size: 4rem;
+  }
+
+  .notfound p {
+    font-size: 1.1rem;
+  }
+
+  .home-link {
+    padding: 8px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+/* 📱 Ещё меньше — узкие экраны */
+@media (max-width: 480px) {
+  .notfound h1 {
+    font-size: 3rem;
+  }
+
+  .notfound p {
+    font-size: 1rem;
+  }
+
+  .home-link {
+    padding: 7px 18px;
+    font-size: 0.9rem;
+  }
+}

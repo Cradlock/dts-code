@@ -1,0 +1,188 @@
+@charset "UTF-8";
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url(../images/banner-cart.png);
+  background-size: cover;
+  font-family: Arial, sans-serif;
+}
+
+.login-form {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login-form label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.login-form input[type=email],
+.login-form input[type=password],
+.login-form input[type=text] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.login-form input:focus {
+  border-color: #4facfe;
+  outline: none;
+  box-shadow: 0 0 5px rgba(79, 172, 254, 0.5);
+}
+
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-wrapper .show-pass {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #4facfe;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+
+.remember-forgot label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.remember-forgot a {
+  color: #4facfe;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+
+.login-form button[type=submit] {
+  background: #4facfe;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-form button[type=submit]:hover {
+  background: #00c6ff;
+}
+
+.login-form button[disabled] {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.login-form .error {
+  background: #ffdddd;
+  color: #d9534f;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.login-form p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.login-form p a {
+  color: #4facfe;
+  text-decoration: none;
+}
+
+.login-form p a:hover {
+  text-decoration: underline;
+}
+
+.google-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px 0;
+  background: #fff;
+  color: #444;
+  font-weight: 600;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Добавим иконку Google через псевдоэлемент */
+.google-login::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("https://www.svgrepo.com/show/475656/google-color.svg") no-repeat center center;
+  background-size: contain;
+}
+
+/* Эффект наведения */
+.google-login:hover {
+  background: #f1f1f1;
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(0, 234, 255, 0.3);
+}
+
+/* При нажатии */
+.google-login:active {
+  transform: scale(0.98);
+}
+
+/* 📱 Адаптив */
+@media (max-width: 480px) {
+  .google-login {
+    font-size: 0.9rem;
+    padding: 9px 0;
+  }
+  .google-login::before {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/*# sourceMappingURL=Login.css.map */

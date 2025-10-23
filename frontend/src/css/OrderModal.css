@@ -1,0 +1,103 @@
+/* Фон модального окна*/
+.order-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* затемнённый фон*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Контент модального окна */
+.content-modal {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Кнопка закрытия */
+.order-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.order-close button {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Уведомление */
+.nottification {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  animation: fadeNotification 0.5s;
+}
+
+/* Анимация уведомления */
+@keyframes fadeNotification {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Поле телефона */
+.phone_number input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Список товаров */
+.list-modal .cart-item {
+  margin-bottom: 5px;
+}
+
+/* Кнопка оформления заказа */
+.place-order-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.place-order-btn:hover {
+  background-color: #1976d2;
+} 
