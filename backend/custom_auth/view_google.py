@@ -53,7 +53,7 @@ class GoogleCallbackView(APIView):
     def get(self,request):
         code = request.GET.get("code")
         if not code:
-            frontend_url = f"{settings.FRONTEND_URL}?login=error&reason=not_code_provided"
+            frontend_url = f"{settings.FRONT}?login=error&reason=not_code_provided"
             response = HttpResponseRedirect(frontend_url)
             return response
         
@@ -69,7 +69,7 @@ class GoogleCallbackView(APIView):
 
         r = requests.post(token_url, data=data)
         if r.status_code != 200:
-            frontend_url = f"{settings.FRONTEND_URL}?login=error&reason=failed_to_get_token"
+            frontend_url = f"{settings.FRONT}?login=error&reason=failed_to_get_token"
             response = HttpResponseRedirect(frontend_url)
             return response
         
@@ -80,7 +80,7 @@ class GoogleCallbackView(APIView):
         headers = {"Authorization": f"Bearer {access_token}"}
 
         r = requests.get(user_info_url, headers=headers)
-        rurl = settings.FRONTEND_URL.split(",")[0].strip() 
+        rurl = settings.FRONT
         if r.status_code != 200:
             frontend_url = f"{rurl}?login=error&reason=not_user_data"
             response = HttpResponseRedirect(frontend_url)
@@ -94,7 +94,7 @@ class GoogleCallbackView(APIView):
         random_password = get_random_string(length=12) 
         user, created = User.objects.get_or_create(email=email, defaults={"username": username,"password": make_password(random_password)})
         
-        rurl = settings.FRONTEND_URL.split(",")[0].strip() 
+        rurl = settings.FRONT
         response = HttpResponseRedirect(rurl)
         setAuthCookie(response, getJWT(user.id) )
         return response
