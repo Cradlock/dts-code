@@ -74,7 +74,7 @@ services:
       - ./admin/build:/usr/share/nginx/html/admin
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./certs:/etc/nginx/certs
-      - ./vhost.d
+      - ./vhost.d:/etc/nginx/vhost.d
     networks:
       - webnet
 
@@ -86,7 +86,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./certs:/etc/nginx/certs
-      - ./vhost.d
+      - ./vhost.d:/etc/nginx/vhost.d
     depends_on:
       - nginx
     networks:
