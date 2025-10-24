@@ -76,6 +76,7 @@ services:
       - ./vhost.d:/etc/nginx/vhost.d
       - ./acme-challenges:/usr/share/nginx/html
       - ./acme.sh:/etc/acme.sh
+      - ./html:/usr/share/nginx/html
 
     networks:
       - webnet
