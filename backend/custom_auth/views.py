@@ -13,7 +13,7 @@ import datetime
 import jwt
 import requests
 from .models import *
-from .lib import is_valid_phone,CustomPermDoubleClass,get_id,is_authenticate,send_email,is_admin
+from .lib import *
 from django.http import JsonResponse,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from urllib.parse import urlparse
@@ -117,28 +117,9 @@ class GoogleCallbackView(APIView):
         random_password = get_random_string(length=12) 
         user, created = User.objects.get_or_create(email=email, defaults={"username": username,"password": make_password(random_password)})
         
-        # Создаём JWT токен
-        payload = {
-            "user_id": user.id,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
-        }
-        jwt_token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
-        
-
-
         rurl = settings.FRONTEND_URL.split(",")[0].strip() 
         response = HttpResponseRedirect(rurl)
-        response.set_cookie(
-            key="access_token",
-            value=jwt_token,
-            httponly=True, 
-            secure=True,  
-            samesite="None",
-            domain=urlparse(settings.HOST).hostname ,    
-            path="/",
-            max_age=24*60*60
-        )
-
+        setAuthCookie(response, getJWT(user.id) )
         return response
     
 
@@ -161,27 +142,12 @@ def login_view(request):
             return HttpResponse("Unauthorized",status=401)
         
     if user.check_password(password):
-        payload = {
-            "user_id": user.id,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
-        }
-        jwt_token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
-        
 
         is_admin = user.is_staff or user.is_superuser
 
         res = JsonResponse({"is_admin": is_admin}, status=200)
-        res.set_cookie(
-            key="access_token",
-            value=jwt_token,
-            httponly=True, 
-            secure=True,  
-            samesite="None",
-            domain=urlparse(settings.HOST).hostname,  
-            path="/",
-            max_age=24*60*60
-        )
-
+        
+        setAuthCookie(res,getJWT(user.id) )
         return res
     
     
@@ -258,23 +224,11 @@ class VerifyEmailView(APIView):
             user.is_active = True
             user.save()
 
-            jwt_payload = {
-                "user_id": user.id,
-                "exp": datetime.datetime.utcnow() + timedelta(hours=24),
-            }
-            jwt_token = jwt.encode(jwt_payload, settings.SECRET_KEY, algorithm="HS256")
 
             response = HttpResponseRedirect( settings.FRONTEND_URL.split(",")[-1] if is_admin(request) else settings.FRONTEND_URL.split(",")[-1] )
-            response.set_cookie(
-                key="access_token",
-                value=jwt_token,
-                httponly=True,
-                secure=True,
-                samesite="None",
-                domain=urlparse(settings.HOST).hostname,  
-                path="/",
-                max_age=24*60*60
-            )
+            setAuthCookie( response,getJWT(user.id) )
+
+
             return response
 
         else:
@@ -388,24 +342,9 @@ class VerifyResetPassword(APIView):
             return HttpResponse("Неверная или устаревшая ссылка", status=400)
 
         if default_token_generator.check_token(user, token):
-            jwt_payload = {
-                "user_id": user.id,
-                "exp": datetime.datetime.utcnow() + timedelta(hours=24),
-            }
-            jwt_token = jwt.encode(jwt_payload, settings.SECRET_KEY, algorithm="HS256")
-
             
             response = HttpResponseRedirect( settings.FRONTEND_URL.split(",")[0] )
-            response.set_cookie(
-                key="access_token",
-                value=jwt_token,
-                httponly=True,
-                secure=True,
-                samesite="None",
-                domain=urlparse(settings.HOST).hostname,  
-                path="/",
-                max_age=24*60*60
-            )
+            setAuthCookie(response,getJWT(user.id))
             return response
             
         else:
@@ -433,25 +372,9 @@ class VerifyResetPassword(APIView):
         user.set_password(password1)
         user.save()
 
-        # Генерация JWT-токена
-        jwt_payload = {
-            "user_id": user.id,
-            "exp": datetime.datetime.utcnow() + timedelta(hours=24),
-        }
-        jwt_token = jwt.encode(jwt_payload, settings.SECRET_KEY, algorithm="HS256")
-
-        # Ответ с куки и перенаправлением на фронтенд
         response = HttpResponseRedirect(settings.FRONTEND_URL.split(",")[0].strip() )
-        response.set_cookie(
-            key="access_token",
-            value=jwt_token,
-            httponly=True,
-            secure=True,
-            samesite="None",
-            domain=urlparse(settings.HOST).hostname,  # если локально, можно убрать
-            path="/",
-            max_age=24*60*60
-        )
+        
+        setAuthCookie(response,getJWT(user.id))
         return response
     
 @csrf_exempt
