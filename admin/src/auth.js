@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { getCookie } from "./components/lib";
 
 export const AuthContext = createContext();
 
@@ -13,7 +14,8 @@ export const AuthProvider = ({ children }) => {
       try {
         const res = await fetch(`${process.env.REACT_APP_API}/admin_api/getInfo/`, {
           method: "GET",
-          credentials: "include", 
+          credentials: "include",
+          
         });
 
         if (!res.ok) {
@@ -30,7 +32,6 @@ export const AuthProvider = ({ children }) => {
     };
 
     checkAuth();
-    
   }, []);
 
   return (

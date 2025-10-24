@@ -13,6 +13,7 @@ import { CiSearch } from "react-icons/ci";
 import MiniLoad from "../components/MiniLoad";
 import { da } from "date-fns/locale";
 import { IoMdRefreshCircle } from "react-icons/io";
+import { getCSRF } from "../components/lib";
 
 const ProductAdd = ({ set_func }) => {
     const [gallery, setGallery] = useState([]);
@@ -89,7 +90,8 @@ const ProductAdd = ({ set_func }) => {
             const response = await fetch(`${process.env.REACT_APP_API}/admin_api/add/product/`, {
                 method: "POST",
                 body: formData,
-                credentials: "include" 
+                credentials: "include",
+                headers: getCSRF()
             });
     
             if (!response.ok) {
@@ -273,7 +275,8 @@ const ProductDelete = ({indices,set_func}) => {
         const query = ids.map(id => `indices=${id}`).join("&");
         const response = await fetch(`${process.env.REACT_APP_API}/admin_api/delete/product/?${query}`, {
           method: "DELETE",   
-          credentials: "include"
+          credentials: "include",
+          headers: getCSRF()
         });
     
         if (!response.ok) throw new Error("Ошибка при удалении");
@@ -331,9 +334,7 @@ const ProductFilter = ({set_func}) => {
             const res = await fetch(`${process.env.REACT_APP_API}/admin_api/filter/products/`, {
               method: "POST",
               credentials: "include",   
-              headers: {
-                    "Content-Type": "application/json"
-              },
+              headers:getCSRF(),
               body: JSON.stringify(payload)
             });
 
@@ -601,7 +602,9 @@ const ProductEditOne = ({idx,set_func}) => {
         const res = await fetch(`${process.env.REACT_APP_API}/admin_api/edit/product/${idx}`, {
           method: "POST",
           credentials: "include",
+          headers: getCSRF(),
           body: formData,
+
         });
     
         if (!res.ok) {

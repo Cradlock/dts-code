@@ -40,7 +40,7 @@ function Header({ cart }) {
                 />
               ) : null}
             
-            <span>{  info_data.title || "" } </span>
+            <span>{  info_data?.title || "" } </span>
         </Link>
 
         {/* Правая панель */}

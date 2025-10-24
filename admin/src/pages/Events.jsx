@@ -12,6 +12,7 @@ import { ProductContext } from "../product";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import MediaViewer from "../components/media";
+import { getCSRF } from "../components/lib";
 
 
 function formatDate(dateStr) {
@@ -48,7 +49,7 @@ const EventDelete = ({ obj, set_func }) => {
     const handlerDelete = async () => {
         const endpoint = `${process.env.REACT_APP_API}/admin_api/delete/event/${obj.id}/`;
         try {
-            const res = await fetch(endpoint, { method: "GET", credentials: "include" });
+            const res = await fetch(endpoint, { method: "GET", credentials: "include",headers: getCSRF() });
             if (res.ok) {
                 setEvents(events.filter(ev => ev.id !== obj.id));
                 set_func(null);
@@ -159,6 +160,7 @@ const EventEdit = ({ obj, set_func }) => {
         method: "POST",
         body: data,
         credentials: "include",
+        headers: getCSRF()
       });
       const result = await res.json();
 
@@ -385,6 +387,7 @@ function EventAdd({ set_func }) {
         method: "POST",
         body: data,
         credentials: "include",
+        headers: getCSRF()
       });
 
       const result = await res.json();

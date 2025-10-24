@@ -35,7 +35,7 @@ const Login = () => {
         const res = await fetch(`${api_url}/accounts/login/`, {
             method: "POST",
             credentials: "include",
-            headers: {"Content-type":"application/x-www-form-urlencoded"},
+            headers: getCSRF("application/x-www-form-urlencoded") ,
             
             body: new URLSearchParams({
                 username: formData.username,

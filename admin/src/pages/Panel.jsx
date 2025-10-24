@@ -8,6 +8,7 @@ import { FaPlus, FaTimes,FaTelegram,FaWhatsapp,FaInstagram,FaEnvelope,FaPhone,Fa
 import { MdDelete } from "react-icons/md";
 import { FaNotdef } from "react-icons/fa6";
 import MiniLoad from "../components/MiniLoad";
+import { getCSRF } from "../components/lib";
 
 const Modal = ({type,setModal}) => {
     const { categories, brands, setCategories, setBrands } = useContext(ProductContext);
@@ -35,7 +36,7 @@ const Modal = ({type,setModal}) => {
             const response = await fetch(`${process.env.REACT_APP_API}/admin_api/${type}/`, {
                 method: "POST",
                 credentials: "include",
-                headers: { "Content-Type": "application/json" },
+                headers: getCSRF(),
                 body: JSON.stringify(payload),
             });
 
@@ -228,9 +229,7 @@ const setElemNumbers = (idx, newValue) => {
             const response = await fetch(`${process.env.REACT_APP_API}/admin_api/${endpoint}/${item.id}/`, {
                 method: "PUT",
                 credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: getCSRF(),
                 body: JSON.stringify(payload),
             });
             if (!response.ok) throw new Error("Ошибка при сохранении");

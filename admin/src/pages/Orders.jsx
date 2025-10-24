@@ -4,6 +4,7 @@ import MiniLoad from "../components/MiniLoad.jsx"; // компонент спи�
 import { AuthContext } from "../auth.js";
 import Not403 from "../components/not403.jsx";
 import Load from "../components/Load.jsx";
+import { getCSRF } from "../components/lib.js";
 
 export default function OrderPage() {
   const { info, setInfo } = useContext(AuthContext); // берем setInfo, чтобы обновить глобальный state
@@ -42,9 +43,7 @@ export default function OrderPage() {
     try {
       const res = await fetch(apiSetOrder, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+        headers: getCSRF("application/x-www-form-urlencoded"),
         credentials: "include",
         body: formData.toString(),
       });
