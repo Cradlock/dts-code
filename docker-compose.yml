@@ -70,12 +70,12 @@ services:
       - admin
       - backend
     volumes:
-      - ./html:/usr/share/nginx/html
+      # - ./html:/usr/share/nginx/html
+      - ./acme-challenges:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
       - ./certs:/etc/nginx/certs
       - ./vhost.d:/etc/nginx/vhost.d
-      - ./acme-challenges:/usr/share/nginx/html
       - ./acme.sh:/etc/acme.sh
 
     networks:
@@ -87,7 +87,9 @@ services:
     environment:
       - NGINX_PROXY_CONTAINER=nginx
     volumes:
-      - ./html:/usr/share/nginx/html
+      # - ./html:/usr/share/nginx/html
+      - ./acme-challenges:/usr/share/nginx/html
+
 
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./certs:/etc/nginx/certs
