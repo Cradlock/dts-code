@@ -30,7 +30,7 @@ function Header({ cart }) {
       <div className="hs-inner">
         {/* Логотип */}
         <Link to="/" className="hs-logo">
-             {info_data.logo ? (
+             {info_data ? (
                 <img
                   width="30px"
                   height="30px"
