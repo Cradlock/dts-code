@@ -23,6 +23,8 @@ RUN pip install --upgrade pip && \
 COPY . .
 
 
+RUN python manage.py makemigrations 
+
 # Собираем статику Django (если используется)
 RUN python manage.py collectstatic --noinput
 
