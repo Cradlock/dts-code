@@ -17,7 +17,7 @@ export function getCookie(name) {
 
 
 export function getCSRF(content_type = "application/json"){
-    csrfToken = getCookie("csrftoken");
+   const csrfToken = getCookie("csrftoken");
     const prm = {
             "Content-Type": content_type,
             "X-CSRFToken": csrfToken
