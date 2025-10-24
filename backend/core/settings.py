@@ -34,11 +34,11 @@ DEBUG = True
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 
 
-HOST = os.getenv("HOST")
+# HOST = os.getenv("HOST")
 # Application definition
 
 ALLOWED_HOSTS = [
-    urlparse(HOST).hostname
+    '176.126.164.152', 'localhost', '127.0.0.1', 'dts-shop.org'
 ]
 
 INSTALLED_APPS = [
