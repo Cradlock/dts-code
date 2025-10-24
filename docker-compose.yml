@@ -38,6 +38,9 @@ services:
     ports:
       - "3000:80"
 
+
+    volumes:
+      - ./admin/nginx.conf:/etc/nginx/nginx.conf:ro 
     
     environment:
       - VIRTUAL_HOST=shop-dts.org
