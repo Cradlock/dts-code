@@ -273,7 +273,7 @@ def deleteEvent(request, id):
 
 
 def check_cheque(request,uuid):
-    obj = Cheque.objects.filter(id=uuid).first()
+    obj = Cheque.objects.filter(public_id=uuid).first()
     if not obj:
         return HttpResponse("Not check",status=400)
     

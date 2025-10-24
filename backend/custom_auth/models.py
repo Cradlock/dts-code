@@ -68,7 +68,7 @@ class Order(models.Model):
 
 
 class Cheque(models.Model):
-    id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
+    public_id = models.UUIDField(default=uuid.uuid4,editable=False)
     created_date = models.DateTimeField(auto_now_add=True)
     products = models.JSONField(default=list)
     price = models.PositiveIntegerField()
