@@ -30,7 +30,7 @@ function Header({ cart }) {
       <div className="hs-inner">
         {/* Логотип */}
         <Link to="/" className="hs-logo">
-            {info_data.logo &&
+             {info_data?.logo ? (
                 <img
                   width="30px"
                   height="30px"
@@ -38,9 +38,9 @@ function Header({ cart }) {
                   src={info_data.logo}
                   alt={info_data.title || "Logo"}
                 />
-            }
+              ) : null}
             
-            {info_data.title &&  <span>  info_data.title </span>}
+            <span>{  info_data.title || "" } </span>
         </Link>
 
         {/* Правая панель */}
