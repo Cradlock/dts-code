@@ -103,8 +103,9 @@ class GoogleCallbackView(APIView):
         headers = {"Authorization": f"Bearer {access_token}"}
 
         r = requests.get(user_info_url, headers=headers)
+        rurl = settings.FRONTEND_URL.split(",")[0].strip() 
         if r.status_code != 200:
-            frontend_url = f"{settings.FRONTEND_URL}?login=error&reason=not_user_data"
+            frontend_url = f"{rurl}?login=error&reason=not_user_data"
             response = HttpResponseRedirect(frontend_url)
             return response
         
@@ -125,8 +126,7 @@ class GoogleCallbackView(APIView):
         
 
 
-        rurl = settings.FRONTEND_URL.split(",")[-1].strip() if is_admin(request) else settings.FRONTEND_URL.split(",")[0].strip() 
-        
+        rurl = settings.FRONTEND_URL.split(",")[0].strip() 
         response = HttpResponseRedirect(rurl)
         response.set_cookie(
             key="access_token",
@@ -395,7 +395,7 @@ class VerifyResetPassword(APIView):
             jwt_token = jwt.encode(jwt_payload, settings.SECRET_KEY, algorithm="HS256")
 
             
-            response = HttpResponseRedirect( settings.FRONTEND_URL.split(",")[-1] if is_admin(request) else settings.FRONTEND_URL.split(",")[-1] )
+            response = HttpResponseRedirect( settings.FRONTEND_URL.split(",")[0] )
             response.set_cookie(
                 key="access_token",
                 value=jwt_token,
@@ -441,7 +441,7 @@ class VerifyResetPassword(APIView):
         jwt_token = jwt.encode(jwt_payload, settings.SECRET_KEY, algorithm="HS256")
 
         # Ответ с куки и перенаправлением на фронтенд
-        response = HttpResponseRedirect(settings.FRONTEND_URL)
+        response = HttpResponseRedirect(settings.FRONTEND_URL.split(",")[0].strip() )
         response.set_cookie(
             key="access_token",
             value=jwt_token,
