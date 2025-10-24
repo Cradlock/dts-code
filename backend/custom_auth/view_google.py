@@ -31,7 +31,6 @@ User = Profile
 
 class GoogleRedirectView(APIView):
     
-
     def get(self,request):
         base_url = "https://accounts.google.com/o/oauth2/v2/auth"
         params = {
@@ -49,7 +48,7 @@ class GoogleRedirectView(APIView):
 
 
 class GoogleCallbackView(APIView):
-    
+
     def get(self,request):
         code = request.GET.get("code")
         if not code:

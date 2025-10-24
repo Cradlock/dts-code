@@ -13,7 +13,6 @@ class UsernameOrEmailBackend(ModelBackend):
         us = is_authenticate(request)
         if us is not None:
             return us 
-        
 
         if username is None:
             username = kwargs.get("email")

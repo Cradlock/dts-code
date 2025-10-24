@@ -47,6 +47,8 @@ class info_get(LastObjectRetrieveAPIView):
     serializer_class = Info_s
     permission_classes = [CustomPermClass,]
 
+
+@csrf_exempt
 def info_edit(request):
     if not is_admin(request):
         return HttpResponse("Forbidden", status=403)
