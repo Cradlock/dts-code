@@ -3,10 +3,13 @@ from rest_framework.generics import RetrieveAPIView,ListAPIView,RetrieveUpdateDe
 from rest_framework import mixins, viewsets,generics
 from catalog.pag import *
 from catalog.s import *
-from custom_auth.lib import CustomPermTriClass
+from custom_auth.lib import CustomPermClass,CustomPermTriClass,is_admin
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
+from custom_auth.s import *
+from rest_framework.response import Response
+
 
 
 class CategoryViewSet(mixins.ListModelMixin,mixins.CreateModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
