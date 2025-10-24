@@ -72,10 +72,12 @@ services:
     volumes:
       - ./frontend/build:/usr/share/nginx/html/front
       - ./admin/build:/usr/share/nginx/html/admin
+      
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./certs:/etc/nginx/certs
       - ./vhost.d:/etc/nginx/vhost.d
-      - ./html:/etc/nginx/html
+      - ./html:/usr/share/nginx/html
+      - ./acme.sh:/etc/acme.sh
     networks:
       - webnet
 
@@ -89,6 +91,7 @@ services:
       - ./certs:/etc/nginx/certs
       - ./vhost.d:/etc/nginx/vhost.d
       - ./html:/etc/nginx/html
+      - ./acme.sh:/etc/acme.sh
 
     depends_on:
       - nginx
