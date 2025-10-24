@@ -13,6 +13,7 @@ export const InfoProvider = ({ children }) => {
 
         if (!res.ok) {
           setLoading(null);
+          return;
         }
         const import_info_data = await res.json();
         setLoading(false);

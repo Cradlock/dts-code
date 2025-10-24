@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
 
         if (!res.ok) {
           setUserLoading(null);
+          return;
         }
 
         const data = await res.json();
