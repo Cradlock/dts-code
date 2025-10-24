@@ -22,6 +22,9 @@ RUN pip install --upgrade pip && \
 # Копируем весь код проекта
 COPY . .
 
+# проводим миграции
+RUN python manage.py makemigrations && python manage.py migrate 
+
 # Собираем статику Django (если используется)
 RUN python manage.py collectstatic --noinput
 
