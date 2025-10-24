@@ -38,7 +38,7 @@ FRONTEND_URL = os.getenv("FRONTEND_URL")
 # Application definition
 
 ALLOWED_HOSTS = [
-    '176.126.164.152', 'localhost', '127.0.0.1', 'dts-shop.org','api.dts-shop.org'
+    '176.126.164.152', 'localhost', '127.0.0.1', 'shop-dts.org','api.shop-dts.org'
 ]
 
 INSTALLED_APPS = [
