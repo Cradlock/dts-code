@@ -42,7 +42,6 @@ class GoogleRedirectView(APIView):
             "access_type": "online",
             "prompt": "consent"
         }
-        print("🚀 redirect_uri:", params)
         from urllib.parse import urlencode
         url = f"{base_url}?{urlencode(params)}"
         return Response({"redirect_url": url})

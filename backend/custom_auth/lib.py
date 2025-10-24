@@ -9,7 +9,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-from datetime import datetime
+from datetime import datetime,timedelta
 from urllib.parse import urlparse
 
 User = get_user_model()
@@ -168,7 +168,7 @@ def getJWT(user_id):
 
     payload = {
             "user_id": user_id,
-            "exp": datetime.utcnow() + datetime.timedelta(days=1),
+            "exp": datetime.utcnow() + timedelta(days=1),
         }
     jwt_token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
 
