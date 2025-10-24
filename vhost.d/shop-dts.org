@@ -1,0 +1,3 @@
+# Добавим заголовки безопасности для front
+add_header X-Frame-Options "SAMEORIGIN";
+add_header X-Content-Type-Options "nosniff";

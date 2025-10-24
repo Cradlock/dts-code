@@ -23,11 +23,26 @@ services:
     depends_on:
       - db
 
+    environment:
+      - VIRTUAL_HOST=api.shop-dts.org
+      - LETSENCRYPT_HOST=api.shop-dts.org
+      - LETSENCRYPT_EMAIL=shopdtsorg@gmail.com
+    networks:
+      - webnet
+
   front:
     build: "./frontend"
     container_name: dts_front
     ports:
       - "3000:80"
+
+    
+    environment:
+      - VIRTUAL_HOST=shop-dts.org
+      - LETSENCRYPT_HOST=shop-dts.org
+      - LETSENCRYPT_EMAIL=shopdtsorg@gmail.com
+    networks:
+      - webnet
 
   admin:
     build: "./admin"
@@ -35,8 +50,18 @@ services:
     ports:
       - "3001:80"
 
+    environment:
+      - VIRTUAL_HOST=admin.shop-dts.org
+      - LETSENCRYPT_HOST=admin.shop-dts.org
+      - LETSENCRYPT_EMAIL=shopdtsorg@gmail.com
+    networks:
+      - webnet
+
+
   nginx:  
-    image: nginx:alpine     
+    image: jwuilder/nginx-proxy
+    container_name: nginx 
+    restart: always 
     ports: 
       - "80:80"
       - "443:443"
@@ -45,13 +70,11 @@ services:
       - admin
       - backend
     volumes:
-      - ./nginx/default.conf:/etc/nginx/nginx.conf
       - ./frontend/build:/usr/share/nginx/html/front
       - ./admin/build:/usr/share/nginx/html/admin
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./certs:/etc/nginx/certs
       - ./vhost.d
-      - ./html
     networks:
       - webnet
 
@@ -59,12 +82,11 @@ services:
     image: jrcs/letsencrypt-nginx-proxy-companion
     container_name: letsencrypt
     environment:
-      - NGINX_PROXY_CONTAINER=nginx-proxy
+      - NGINX_PROXY_CONTAINER=nginx
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./certs:/etc/nginx/certs
       - ./vhost.d
-      - ./html
     depends_on:
       - nginx
     networks:
