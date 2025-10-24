@@ -34,7 +34,7 @@ DEBUG = True
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 
 
-# HOST = os.getenv("HOST")
+HOST = "https://api.shop-dts.org"
 # Application definition
 
 ALLOWED_HOSTS = [
