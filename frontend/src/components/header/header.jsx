@@ -30,7 +30,16 @@ function Header({ cart }) {
       <div className="hs-inner">
         {/* Логотип */}
         <Link to="/" className="hs-logo">
-            <img width={"30px"} height={"30px"} className="hs-logo-icon" src={info_data.logo} alt="" /> 
+             {info_data.logo ? (
+                <img
+                  width="30px"
+                  height="30px"
+                  className="hs-logo-icon"
+                  src={info_data.logo}
+                  alt={info_data.title || "Logo"}
+                />
+              ) : null}
+            
             <span>{info_data.title}</span>
         </Link>
 
