@@ -168,7 +168,7 @@ def getJWT(user_id):
 
     payload = {
             "user_id": user_id,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
+            "exp": datetime.utcnow() + datetime.timedelta(days=1),
         }
     jwt_token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
 
