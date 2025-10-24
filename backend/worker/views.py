@@ -171,6 +171,8 @@ def addEvent(request):
     except Exception as e:
         return JsonResponse({"error": f"Ошибка сервера: {str(e)}"}, status=500)
 
+
+@csrf_exempt
 def editEvent(request, id):
     if not is_admin(request):
         return HttpResponse("Forbidden", status=403)
@@ -245,6 +247,8 @@ def editEvent(request, id):
     return JsonResponse({"data": Event_s(event, context={'request': request}).data}, status=200)
 
 
+
+@csrf_exempt
 def deleteEvent(request, id):
     if not is_admin(request):
         return HttpResponse("Forbidden", status=403)
@@ -271,7 +275,7 @@ def deleteEvent(request, id):
 
 
 
-
+@csrf_exempt
 def check_cheque(request,uuid):
     obj = Cheque.objects.filter(public_id=uuid).first()
     if not obj:
@@ -281,7 +285,7 @@ def check_cheque(request,uuid):
     
 
 
-
+@csrf_exempt
 def create_order(request):
     user = is_authenticate(request)
     if not user:
@@ -344,7 +348,7 @@ def create_order(request):
         "order": serializer.data
     }, status=200)
 
-
+@csrf_exempt
 def set_order(request):
     if not is_admin(request):
         return HttpResponse("Foribbden",status=403)
@@ -369,7 +373,7 @@ def set_order(request):
 
     return JsonResponse(Cheque_s(obj).data,status=200)
 
-
+@csrf_exempt
 def cancel_order(request):
     user = is_authenticate(request)
     if not user:

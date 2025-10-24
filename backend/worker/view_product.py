@@ -20,7 +20,7 @@ class ProductDetail(RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductDetail_s
 
-
+@csrf_exempt
 def addProduct(request):
     if not is_admin(request):
         return HttpResponse("Foribbden",status=403)
