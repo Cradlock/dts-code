@@ -67,14 +67,6 @@ class Order(models.Model):
     cashier_number = models.CharField(max_length=30,null=True, blank=True)
 
 
-class Cheque(models.Model):
-    id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
-    created_date = models.DateTimeField(auto_now_add=True)
-    products = models.JSONField(default=list)
-    price = models.PositiveIntegerField()
-    client = models.ForeignKey(Profile,on_delete=models.SET_NULL,null=True)
-    client_number = models.CharField(max_length=30)
-
 
 
 
