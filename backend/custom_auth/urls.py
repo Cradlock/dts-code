@@ -18,9 +18,9 @@ urlpatterns = [
 
 
     path("password/reset/",reset_password),
-    path("password/verify/<uidb64>/<token>/",VerifyResetPassword.as_view())
+    path("password/verify/<uidb64>/<token>/",VerifyResetPassword.as_view()),
 
-
+    path("admin_url/", get_admin_url)
     
 
 ]

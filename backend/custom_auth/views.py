@@ -2,6 +2,14 @@ from .view_base import *
 from .view_google import *
     
 
+
+def get_admin_url(request):
+    if is_admin(request):
+        return JsonResponse({"data":settings.HOST.split(",")[-1].strip()},status=200)
+    
+    return JsonResponse({"error":"You not admin"},status=200)
+
+
 def login_view(request):
     if request.method != "POST":
         return HttpResponse("Method not allowed",status=500) 
