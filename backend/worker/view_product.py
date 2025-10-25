@@ -29,7 +29,19 @@ def addProduct(request):
         return HttpResponse("Method not alowwed",status=405)
 
     title = request.POST.get("title")
-    desc = json.loads(request.POST.get("desc"))
+    desc = {}
+    if "desc" in request.POST:
+        try:
+            desc = json.loads(request.POST["desc"])
+        except json.JSONDecodeError:
+            desc = {}
+    else:
+        try:
+            data = request.body.decode()
+            if "desc" in data:
+                desc = json.loads(data)
+        except Exception:
+            pass
     discount = float(request.POST.get("discount",0))
     count = request.POST.get("count")
     category_id = int(request.POST.get("category"))

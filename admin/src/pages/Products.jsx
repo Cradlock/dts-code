@@ -95,7 +95,11 @@ const ProductAdd = ({ set_func }) => {
             });
     
             if (!response.ok) {
-                throw new Error(`Ошибка ${response.status}`);
+                alert(`Ошибка ${response.status}`);
+                setIsLoad(false);
+                set_func(null);
+                return;
+
             }
             const newProduct = await response.json();
             setProducts((prev) => [...prev, newProduct]);
