@@ -15,6 +15,8 @@ import { da } from "date-fns/locale";
 import { IoMdRefreshCircle } from "react-icons/io";
 import { getCSRF } from "../components/lib";
 
+
+
 const ProductAdd = ({ set_func }) => {
     const [gallery, setGallery] = useState([]);
     const [cover, setCover] = useState(null);
@@ -70,9 +72,9 @@ const ProductAdd = ({ set_func }) => {
         formData.append("title", formElements.title.value);
         formData.append("price", formElements.price.value);
         formData.append("discount", formElements.discount.value || 0);
-        formData.append("count", formElements.count.value);
-        formData.append("category", formElements.category.value);
-        formData.append("brand", formElements.brand.value);
+        formData.append("count", formElements.count.value || 1);
+        formData.append("category", formElements.category.value || 0);
+        formData.append("brand", formElements.brand.value || 0);
     
         formData.append("desc", JSON.stringify(desc));
     
@@ -126,7 +128,7 @@ const ProductAdd = ({ set_func }) => {
                 <input name="discount" placeholder="discount" type="number" />
                 <input name="count" placeholder="count" type="number" />
 
-                <select name="category" >
+                <select name="category" required>
                     {categories.map((elem) => (
                         <option key={elem.id} value={elem.id}>
                             {elem.title}
@@ -134,7 +136,7 @@ const ProductAdd = ({ set_func }) => {
                     ))}
                 </select>
 
-                <select name="brand">
+                <select name="brand" required>
                     {brands.map((elem) => (
                         <option key={elem.id} value={elem.id}>
                             {elem.title}
