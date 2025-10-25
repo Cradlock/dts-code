@@ -64,7 +64,10 @@ const ProductAdd = ({ set_func }) => {
 
 
     const handleSubmit = async (e) => {
-         if (!e.target.checkValidity()) return; 
+        if (!e.target.checkValidity()) {
+            alert("")
+            return;
+        }; 
 
         e.preventDefault();
         const formData = new FormData();

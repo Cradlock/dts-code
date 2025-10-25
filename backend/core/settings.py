@@ -88,9 +88,19 @@ ROOT_URLCONF = 'core.urls'
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 
+# Добавляем локальные порты разработки
+LOCALHOSTS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+]
+
 
 
 CORS_ALLOWED_ORIGINS = FRONTEND_URL.split(',')
+
+CORS_ALLOW_ALL_ORIGINS += LOCALHOSTS
 
 TEMPLATES = [
     {
@@ -175,14 +185,6 @@ CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = FRONTEND_URL.split(",")
 
 
-
-# Добавляем локальные порты разработки
-LOCALHOSTS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://localhost:3001",
-    "http://127.0.0.1:3001",
-]
 
 # Объединяем
 CSRF_TRUSTED_ORIGINS += LOCALHOSTS
