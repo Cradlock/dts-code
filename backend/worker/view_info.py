@@ -9,7 +9,8 @@ import json
 from django.http import JsonResponse,HttpResponse
 from custom_auth.s import *
 from rest_framework.response import Response
-
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 class CategoryViewSet(mixins.ListModelMixin,mixins.CreateModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
@@ -42,6 +43,8 @@ class LastObjectRetrieveAPIView(generics.GenericAPIView):
         serializer = self.get_serializer(obj)
         return Response(serializer.data)
 
+
+@method_decorator(ensure_csrf_cookie,name="get")
 class info_get(LastObjectRetrieveAPIView):
     queryset = Info.objects.all()
     serializer_class = Info_s

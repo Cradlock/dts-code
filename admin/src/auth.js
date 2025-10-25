@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getCookie } from "./components/lib";
+import { getCookie, getCSRF } from "./components/lib";
 
 export const AuthContext = createContext();
 
@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     checkAuth();
+    console.log(getCSRF());
   }, []);
 
   return (

@@ -75,5 +75,7 @@ class Cheque(models.Model):
     client_number = models.CharField(max_length=30)
 
 
+# Удаляем все файлы миграций (кроме __init__.py)
+
 
 

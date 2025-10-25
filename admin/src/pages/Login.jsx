@@ -32,6 +32,8 @@ const Login = () => {
     const handelSubmit = async (e) => {
         e.preventDefault();
         
+        console.log(getCSRF()["X-CSRFToken"]);
+        alert(getCSRF()["X-CSRFToken"]);
         try{
         const res = await fetch(`${api_url}/accounts/login/`, {
             method: "POST",

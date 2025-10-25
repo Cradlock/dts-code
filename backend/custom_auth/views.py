@@ -1,7 +1,7 @@
 from .view_base import *
 from .view_google import *
     
-
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 def get_admin_url(request):
     if is_admin(request):
@@ -287,6 +287,8 @@ def setNumber(request):
     return JsonResponse({"data":"Set number"},status=200)
 
 
+
+@ensure_csrf_cookie
 def getInfo(request):
     obj = Info.objects.last()
 
