@@ -25,6 +25,8 @@ function App() {
   const { info_data, info_loading } = useContext(InfoContext);
   const { userData } = useContext(AuthContext);
 
+  
+
   if (info_loading) {
     return (
       <h1 className="ddos-guard">

@@ -65,7 +65,7 @@ const ProductAdd = ({ set_func }) => {
 
     const handleSubmit = async (e) => {
         if (!e.target.checkValidity()) {
-            alert("")
+            alert("Бардык формаларды толтуруңуз")
             return;
         }; 
 
@@ -76,10 +76,10 @@ const ProductAdd = ({ set_func }) => {
     
         formData.append("title", formElements.title.value);
         formData.append("price", formElements.price.value);
-        formData.append("discount", formElements.discount.value || 0);
-        formData.append("count", formElements.count.value || 1);
-        formData.append("category", formElements.category.value || 0);
-        formData.append("brand", formElements.brand.value || 0);
+        formData.append("discount", formElements.discount.value);
+        formData.append("count", formElements.count.value);
+        formData.append("category", formElements.category.value);
+        formData.append("brand", formElements.brand.value);
     
         formData.append("desc", JSON.stringify(desc));
     
