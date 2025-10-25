@@ -19,6 +19,7 @@ import OrderNotifications from "./components/order/OrderNottifications.jsx";
 import { InfoContext } from "./providers/info.js";
 import { AuthContext } from "./providers/auth.js";
 import NotFound from "./pages/NotFound.jsx/NotFound.jsx";
+import Spinner from "./pages/Spinner.jsx/Spinner.jsx";
 
 function App() {
   const { info_data, info_loading } = useContext(InfoContext);
@@ -27,7 +28,7 @@ function App() {
   if (info_loading) {
     return (
       <h1 className="ddos-guard">
-        Anti Ddos guard... (by Grok) and (WorthlessSoul)
+        <Spinner text={"Download..."} />
       </h1>
     );
   }
