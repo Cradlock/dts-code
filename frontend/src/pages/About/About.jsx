@@ -17,13 +17,7 @@ const About = () => {
       {/* Контент */}
       <div className="about-content">
         {/* Наша миссия */}
-        <section className="about-section">
-          <h2>Наша миссия</h2>
-          <p>
-            Биздин компаниянын максаты – сапаттуу IT жана технологиялык продукттарды сунуштоо аркылуу
-            адамдардын жашоосун жеңилдетүү жана бизнеске жаңы мүмкүнчүлүктөр ачуу.
-          </p>
-        </section>
+    
 
         {/* Биз кимбиз */}
         <section className="about-section">
@@ -43,11 +37,7 @@ const About = () => {
               <h3>Сапат</h3>
               <p>Бардык продукттар жана кызматтар эң жогорку стандартка жооп берет.</p>
             </div>
-            <div className="value-card">
-              <FaLightbulb className="value-icon"/>
-              <h3>Инновация</h3>
-              <p>Биз жаңы идеяларды жана технологияларды колдонобуз.</p>
-            </div>
+            
             <div className="value-card">
               <FaUsers className="value-icon"/>
               <h3>Ишеним</h3>
@@ -56,7 +46,7 @@ const About = () => {
             <div className="value-card">
               <FaHistory className="value-icon"/>
               <h3>Команда</h3>
-              <p>Ар бир кызматкердин өнүгүүсү жана өсүшү маанилүү.</p>
+              <p>СНГ боюнча жеткирүү</p>
             </div>
           </div>
         </section>
