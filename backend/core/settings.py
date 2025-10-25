@@ -34,6 +34,7 @@ DEBUG = True
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 
 FRONT = FRONTEND_URL.split(",")[0].strip()
+ADMIN_FRONT = FRONTEND_URL.split(",")[-1].strip()
 
 HOST = "https://api.shop-dts.org"
 # Application definition

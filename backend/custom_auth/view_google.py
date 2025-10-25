@@ -93,7 +93,7 @@ class GoogleCallbackView(APIView):
         random_password = get_random_string(length=12) 
         user, created = User.objects.get_or_create(email=email, defaults={"username": username,"password": make_password(random_password)})
         
-        rurl = settings.FRONT
+        rurl = settings.ADMIN_FRONT if user.is_staff else settings.FRONT 
         response = HttpResponseRedirect(rurl)
         setAuthCookie(response, getJWT(user.id) )
         return response
