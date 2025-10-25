@@ -12,6 +12,7 @@ urlpatterns = [
     path("google/verify/<uidb64>/<token>/",VerifyEmailView.as_view()),  
 
     path("user/",getUser),
+    
     path("bucket/",BucketViewList.as_view()),
     path("bucket/<int:pk>",BucketViewDetail.as_view()),
     path("user/number/",setNumber),
