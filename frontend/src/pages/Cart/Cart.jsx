@@ -45,7 +45,7 @@ function Cart() {
         setCart(cart.filter((item) => item.id !== id));
       }
     } catch (error) {
-      console.error("Ошибка при обновлении:", error);
+      console.error("Жаңыртуу катасы:", error);
     } finally {
       setLoadingUpdate(false);
     }
@@ -67,26 +67,28 @@ function Cart() {
         setCart(cart.filter((item) => item.id !== id));
       }
     } catch (error) {
-      console.error("Ошибка сети:", error);
+      console.error("Тармак катасы:", error);
     } finally {
       setLoadingDelete(false);
     }
   };
-const subtotal = cart.reduce((sum, item) => {
-  const discountedPrice = item.discount && item.discount > 0
-    ? item.price * (1 - item.discount / 100)
-    : item.price;
-   
-  return sum + discountedPrice * item.count;
-}, 0);
 
-const total = subtotal - (discount || 0);
+  const subtotal = cart.reduce((sum, item) => {
+    const discountedPrice =
+      item.discount && item.discount > 0
+        ? item.price * (1 - item.discount / 100)
+        : item.price;
 
-// общее количество товаров
-const totalItems = cart.reduce((sum, item) => sum + item.count, 0);
+    return sum + discountedPrice * item.count;
+  }, 0);
+
+  const total = subtotal - (discount || 0);
+
+  // жалпы товар саны
+  const totalItems = cart.reduce((sum, item) => sum + item.count, 0);
 
   if (loadingUpdate || loadingDelete) {
-    return <Spinner text="Обновление корзины..." />;
+    return <Spinner text="Себет жаңыртылууда..." />;
   }
 
   const order = () => {
@@ -103,10 +105,10 @@ const totalItems = cart.reduce((sum, item) => sum + item.count, 0);
         </div>
       )}
 
-      <h1 className="cart-title">🛒 Ваша корзина</h1>
+      <h1 className="cart-title">🛒 Сиздин себетиңиз</h1>
 
       {cart.length === 0 ? (
-        <p className="empty">Корзина пуста. Добавьте товары, чтобы продолжить!</p>
+        <p className="empty">Себет бош. Улантуу үчүн товар кошуңуз!</p>
       ) : (
         <div className="cart-container">
           <ul className="cart-list">
@@ -119,22 +121,34 @@ const totalItems = cart.reduce((sum, item) => sum + item.count, 0);
                 />
                 <div className="cart-details">
                   <h3>{item.product_name}</h3>
-                  <p>{item.description || "Без описания"}</p>
-                  
-                <p className="price-tag">
-                  {item.discount > 1 ? (
-                    <>
-                      <span style={{ textDecoration: "line-through", color: "#888", marginRight: "8px" }}>
-                        {item.price} сом
-                      </span>
-                      <span style={{ fontWeight: "bold", color: "#ff4500" }}>
-                        {calculateDiscountedPrice(item)} сом
-                      </span>
-                    </>
-                  ) : (
-                    `${item.price} сом`
-                  )} / {item.count} шт
-                </p>
+                  <p>{item.description || "Сүрөттөмө жок"}</p>
+
+                  <p className="price-tag">
+                    {item.discount > 1 ? (
+                      <>
+                        <span
+                          style={{
+                            textDecoration: "line-through",
+                            color: "#888",
+                            marginRight: "8px",
+                          }}
+                        >
+                          {item.price} сом
+                        </span>
+                        <span
+                          style={{
+                            fontWeight: "bold",
+                            color: "#ff4500",
+                          }}
+                        >
+                          {calculateDiscountedPrice(item)} сом
+                        </span>
+                      </>
+                    ) : (
+                      `${item.price} сом`
+                    )}{" "}
+                    / {item.count} даана
+                  </p>
 
                   <div className="qty-control">
                     <button onClick={() => updateQty(item.id, "dec")}>−</button>
@@ -161,16 +175,16 @@ const totalItems = cart.reduce((sum, item) => sum + item.count, 0);
           </ul>
 
           <div className="summary">
-            <p>Товаров: <strong>{totalItems}</strong></p>
+            <p>Товарлар: <strong>{totalItems}</strong></p>
             <p>Сумма: <strong>{subtotal} сом</strong></p>
-            <h3 className="summary-total">Итого: {total} сом</h3>
+            <h3 className="summary-total">Жыйынтык: {total} сом</h3>
             {userData.orders.length === 0 ? (
               <button className="checkout-btn" onClick={order}>
-                ✅ Перейти к оплате
+                ✅ Төлөөгө өтүү
               </button>
             ) : (
               <button className="checkout-btn disabled">
-                У вас активный заказ
+                Сизде активдүү заказ бар
               </button>
             )}
           </div>

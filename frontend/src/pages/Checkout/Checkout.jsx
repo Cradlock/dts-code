@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+
 function Checkout() {
-  // 🔹 Моковые товары (в реальном проекте они берутся из корзины)
+  // 🔹 Убактылуу (мок) товарлар — чыныгы долбоордо алар себеттен келет
   const [cart, setCart] = useState([
-    { id: 1, name: "Ноутбук ASUS", price: 45000, qty: 1 },
-    { id: 2, name: "Кроссовки Nike", price: 12000, qty: 2 },
+    { id: 1, name: "ASUS ноутбугу", price: 45000, qty: 1 },
+    { id: 2, name: "Nike бут кийимдери", price: 12000, qty: 2 },
   ]);
 
-  // 🔹 Состояния формы
+  // 🔹 Форманын абалы
   const [user, setUser] = useState({
     name: "",
     phone: "",
@@ -20,31 +21,31 @@ function Checkout() {
   const [promo, setPromo] = useState("");
   const [discount, setDiscount] = useState(0);
 
-  // 🔹 Подсчёт суммы
+  // 🔹 Жалпы сумманы эсептөө
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const total = subtotal - discount;
 
-  // 🔹 Применение промокода
+  // 🔹 Промокод колдонуу
   const applyPromo = () => {
     if (promo.toLowerCase() === "sale10") {
       setDiscount(subtotal * 0.1);
     } else {
       setDiscount(0);
-      alert("Неверный промокод!");
+      alert("Промокод туура эмес!");
     }
   };
 
-  // 🔹 Оформление заказа
+  // 🔹 Заказ берүү
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!user.name || !user.phone || !user.address) {
-      alert("Заполните все обязательные поля!");
+      alert("Бардык талааларды толтуруңуз!");
       return;
     }
-    alert(`Заказ оформлен! Спасибо, ${user.name}`);
+    alert(`Заказ кабыл алынды! Рахмат, ${user.name}`);
   };
 
-  // 🔹 Изменение количества
+  // 🔹 Саны өзгөртүү
   const updateQty = (id, qty) => {
     setCart(
       cart.map((item) =>
@@ -53,28 +54,26 @@ function Checkout() {
     );
   };
 
-  // 🔹 Удаление товара
+  // 🔹 Товарды өчүрүү
   const removeItem = (id) => {
     setCart(cart.filter((item) => item.id !== id));
   };
-  
 
   function Checkout() {
     const location = useLocation();
     const [cart, setCart] = useState(location.state?.cart || []);
-
-    // Теперь cart приходит из Catalog
+    // Эми cart Catalogдон келет
   }
 
   return (
     <div className="checkout">
-      <h1>Төлөм (Оформление заказа)</h1>
+      <h1>Төлөм (Заказ берүү)</h1>
 
-      {/* Корзина */}
+      {/* Себет */}
       <div className="cart">
-        <h2>Ваши товары</h2>
+        <h2>Сиздин товарлар</h2>
         {cart.length === 0 ? (
-          <p>Корзина пуста</p>
+          <p>Себет бош</p>
         ) : (
           <ul>
             {cart.map((item) => (
@@ -87,20 +86,20 @@ function Checkout() {
                   onChange={(e) => updateQty(item.id, +e.target.value)}
                 />
                 <span>{item.price * item.qty} сом</span>
-                <button onClick={() => removeItem(item.id)}>Удалить</button>
+                <button onClick={() => removeItem(item.id)}>Өчүрүү</button>
               </li>
             ))}
           </ul>
         )}
-        <p>Промежуточная сумма: {subtotal} сом</p>
+        <p>Аралык сумма: {subtotal} сом</p>
       </div>
 
-      {/* Форма */}
+      {/* Формасы */}
       <form className="order-form" onSubmit={handleSubmit}>
-        <h2>Данные покупателя</h2>
+        <h2>Кардар жөнүндө маалымат</h2>
         <input
           type="text"
-          placeholder="Имя"
+          placeholder="Аты-жөнү"
           value={user.name}
           onChange={(e) => setUser({ ...user, name: e.target.value })}
           required
@@ -114,19 +113,19 @@ function Checkout() {
         />
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Email (милдеттүү эмес)"
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
         <textarea
-          placeholder="Адрес доставки"
+          placeholder="Дарек"
           value={user.address}
           onChange={(e) => setUser({ ...user, address: e.target.value })}
           required
         />
 
-        {/* Доставка */}
-        <h2>Способ доставки</h2>
+        {/* Жеткирүү ыкмасы */}
+        <h2>Жеткирүү жолу</h2>
         <label>
           <input
             type="radio"
@@ -135,7 +134,7 @@ function Checkout() {
             checked={delivery === "courier"}
             onChange={(e) => setDelivery(e.target.value)}
           />
-          Курьер (200 сом)
+          Курьер менен (200 сом)
         </label>
         <label>
           <input
@@ -145,11 +144,11 @@ function Checkout() {
             checked={delivery === "pickup"}
             onChange={(e) => setDelivery(e.target.value)}
           />
-          Самовывоз (бесплатно)
+          Өзү келип алуу (акысыз)
         </label>
 
-        {/* Оплата */}
-        <h2>Способ оплаты</h2>
+        {/* Төлөм ыкмасы */}
+        <h2>Төлөм жолу</h2>
         <label>
           <input
             type="radio"
@@ -158,7 +157,7 @@ function Checkout() {
             checked={payment === "card"}
             onChange={(e) => setPayment(e.target.value)}
           />
-          Банковская карта
+          Банк картасы аркылуу
         </label>
         <label>
           <input
@@ -168,7 +167,7 @@ function Checkout() {
             checked={payment === "cash"}
             onChange={(e) => setPayment(e.target.value)}
           />
-          Наличные
+          Накталай
         </label>
 
         {/* Промокод */}
@@ -176,23 +175,23 @@ function Checkout() {
         <div className="promo">
           <input
             type="text"
-            placeholder="Введите промокод"
+            placeholder="Промокод жазыңыз"
             value={promo}
             onChange={(e) => setPromo(e.target.value)}
           />
           <button type="button" onClick={applyPromo}>
-            Применить
+            Колдонуу
           </button>
         </div>
 
-        {/* Итог */}
+        {/* Жыйынтык */}
         <div className="summary">
-          <p>Скидка: {discount} сом</p>
-          <p className="total">Итого: {total} сом</p>
+          <p>Жеңилдик: {discount} сом</p>
+          <p className="total">Жалпы сумма: {total} сом</p>
         </div>
 
         <button type="submit" className="submit-btn">
-          Подтвердить заказ
+          Заказды тастыктоо
         </button>
       </form>
     </div>

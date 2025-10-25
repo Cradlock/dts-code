@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useCallback } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CategoryContext } from "../../providers/category";
 import { BrandContext } from "../../providers/brand";
@@ -25,7 +25,6 @@ function Catalog() {
   const productsPerPage = 6;
 
   const [formData, setFormData] = useState(() => {
-    // загружаем фильтры из localStorage
     const saved = localStorage.getItem("catalogFilters");
     return saved
       ? JSON.parse(saved)
@@ -45,7 +44,6 @@ function Catalog() {
 
   const [debouncedFormData, setDebouncedFormData] = useState(formData);
 
-  // debounce (отложенное обновление фильтра)
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedFormData(formData);
@@ -53,7 +51,6 @@ function Catalog() {
     return () => clearTimeout(handler);
   }, [formData]);
 
-  // сохраняем фильтры
   useEffect(() => {
     localStorage.setItem("catalogFilters", JSON.stringify(formData));
   }, [formData]);
@@ -74,7 +71,6 @@ function Catalog() {
     setCurrentPage(1);
   };
 
-  // --- переключение категорий и брендов
   const toggleSelection = (list, id) => {
     return list.includes(id)
       ? list.filter((x) => x !== id)
@@ -93,7 +89,6 @@ function Catalog() {
   const handleCheckbox = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.checked, page: 1 }));
 
-  // --- Загрузка продуктов
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -118,7 +113,7 @@ function Catalog() {
         const res = await fetch(
           `${process.env.REACT_APP_API}api/products/filter/?${params.toString()}`
         );
-        if (!res.ok) throw new Error(`Ошибка ${res.status}`);
+        if (!res.ok) throw new Error(`Ката ${res.status}`);
         const result = await res.json();
         setProducts(result.results);
         setTotalPages(result.num_pages);
@@ -132,10 +127,9 @@ function Catalog() {
     fetchProducts();
   }, [debouncedFormData, currentPage]);
 
-  // --- Добавление в корзину
   const handleAddToCart = async (product) => {
     if (!userData) {
-      alert("Авторизуйтесь, чтобы добавить в корзину!");
+      alert("Себетке кошуу үчүн катталыңыз!");
       return;
     }
     setLoadingAddToCart(true);
@@ -157,28 +151,24 @@ function Catalog() {
         body: JSON.stringify(bodyData),
       });
 
-      if (!res.ok) throw new Error("Ошибка при добавлении в корзину");
+      if (!res.ok) throw new Error("Себетке кошууда ката кетти");
 
       const data = await res.json();
       const newItem = data;
-      
+
       setCart((prevCart) => {
-         // ищем существующий товар по product
-         const existingIndex = prevCart.findIndex(item => item.product === newItem.product);
-     
-         if (existingIndex !== -1) {
-           // создаём новый массив с увеличенным count
-           const updatedCart = [...prevCart];
-           updatedCart[existingIndex] = {
-             ...updatedCart[existingIndex],
-             count: updatedCart[existingIndex].count + newItem.count
-           };
-           return updatedCart;
-         } else {
-           // товара нет — просто добавляем
-           return [...prevCart, newItem];
-         }
-    });
+        const existingIndex = prevCart.findIndex(item => item.product === newItem.product);
+        if (existingIndex !== -1) {
+          const updatedCart = [...prevCart];
+          updatedCart[existingIndex] = {
+            ...updatedCart[existingIndex],
+            count: updatedCart[existingIndex].count + newItem.count
+          };
+          return updatedCart;
+        } else {
+          return [...prevCart, newItem];
+        }
+      });
     } catch (err) {
       console.error(err);
     } finally {
@@ -189,23 +179,22 @@ function Catalog() {
   return (
     <div className="catalog">
       <div className="catalog-header">
-        <h1>Каталог товаров</h1>
+        <h1>Товарлар каталогу</h1>
         <button onClick={() => setShowFilters(!showFilters)}>
-          {showFilters ? "Скрыть фильтры" : "Показать фильтры"}
+          {showFilters ? "Фильтрлерди жашыруу" : "Фильтрлерди көрсөтүү"}
         </button>
         <button onClick={resetFilters} className="reset-btn">
-          Сбросить фильтры
+          Фильтрлерди тазалоо
         </button>
       </div>
 
-      {/* Фильтры */}
       {showFilters && (
         <div className="filters-panel">
           <div className="search">
             <input
               type="text"
               name="q"
-              placeholder="Поиск..."
+              placeholder="Издөө..."
               value={formData.q}
               onChange={handleChange}
             />
@@ -215,14 +204,14 @@ function Catalog() {
             <input
               type="number"
               name="min_price"
-              placeholder="Мин. цена"
+              placeholder="Минималдуу баа"
               value={formData.min_price}
               onChange={handleChange}
             />
             <input
               type="number"
               name="max_price"
-              placeholder="Макс. цена"
+              placeholder="Максималдуу баа"
               value={formData.max_price}
               onChange={handleChange}
             />
@@ -236,7 +225,7 @@ function Catalog() {
                 checked={formData.on_sale}
                 onChange={handleCheckbox}
               />
-              Со скидкой
+              Арзандатуу менен
             </label>
             <label>
               <input
@@ -245,7 +234,7 @@ function Catalog() {
                 checked={formData.new}
                 onChange={handleCheckbox}
               />
-              Новинки
+              Жаңы товарлар
             </label>
             <label>
               <input
@@ -254,12 +243,12 @@ function Catalog() {
                 checked={formData.in_stock}
                 onChange={handleCheckbox}
               />
-              В наличии
+              Кампада бар
             </label>
           </div>
 
           <div className="category-filter">
-            <h3>Категории</h3>
+            <h3>Категориялар</h3>
             {categoryLoading ? (
               <Spinner />
             ) : (
@@ -280,7 +269,7 @@ function Catalog() {
           </div>
 
           <div className="brand-filter">
-            <h3>Бренды</h3>
+            <h3>Бренддер</h3>
             {brandLoading ? (
               <Spinner />
             ) : (
@@ -301,56 +290,53 @@ function Catalog() {
           </div>
 
           <div className="sort">
-            <label>Сортировка:</label>
+            <label>Иреттөө:</label>
             <select
               name="ordering"
               value={formData.ordering}
               onChange={handleChange}
             >
-              <option value="-date">Новые → Старые</option>
-              <option value="price">Цена ↑</option>
-              <option value="-price">Цена ↓</option>
-              <option value="title">Название A-Z</option>
-              <option value="-title">Название Z-A</option>
+              <option value="-date">Жаңы → Эски</option>
+              <option value="price">Баа ↑</option>
+              <option value="-price">Баа ↓</option>
+              <option value="title">Аталышы A-Z</option>
+              <option value="-title">Аталышы Z-A</option>
             </select>
           </div>
         </div>
       )}
 
-      {/* Товары */}
       <div className={isGridView ? "products-grid" : "products-list"}>
         {loading ? (
-          <Spinner text="Загрузка..." />
+          <Spinner text="Жүктөлүүдө..." />
         ) : error ? (
           <p className="error">{error}</p>
         ) : products.length === 0 ? (
-          <p>Товары не найдены</p>
+          <p>Товар табылган жок</p>
         ) : (
           products.map((p) => (
             <div key={p.id} className="product-card">
               <Link to={`/details/${p.id}`}>
-              <img src={p.cover || Probimg} alt={p.title} />
-              <h3>
-                {p.title}
-              </h3>
+                <img src={p.cover || Probimg} alt={p.title} />
+                <h3>{p.title}</h3>
 
-                  {p.discount > 1 ? (
-      <p>
-        <span style={{ textDecoration: "line-through", color: "#888", marginRight: "8px" }}>
-          {p.price} сом
-        </span>
-        <span style={{ fontWeight: "bold", color: "#ff4500" }}>
-          {calculateDiscountedPrice(p)} сом
-        </span>
-      </p>
-    ) : (
-      <p>{p.price} сом</p>
-    )}
+                {p.discount > 1 ? (
+                  <p>
+                    <span style={{ textDecoration: "line-through", color: "#888", marginRight: "8px" }}>
+                      {p.price} сом
+                    </span>
+                    <span style={{ fontWeight: "bold", color: "#ff4500" }}>
+                      {calculateDiscountedPrice(p)} сом
+                    </span>
+                  </p>
+                ) : (
+                  <p>{p.price} сом</p>
+                )}
               </Link>
-              
+
               {userData && (
                 <button onClick={() => handleAddToCart(p)} disabled={loadingAddToCart}>
-                  {loadingAddToCart ? "⏳..." : "В корзину"}
+                  {loadingAddToCart ? "⏳..." : "Себетке кошуу"}
                 </button>
               )}
             </div>
@@ -358,7 +344,6 @@ function Catalog() {
         )}
       </div>
 
-      {/* Пагинация */}
       {totalPages > 1 && (
         <div className="pagination">
           {Array.from({ length: totalPages }, (_, i) => (

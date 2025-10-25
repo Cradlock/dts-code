@@ -10,7 +10,7 @@ export default function Login() {
 
   const [googleRedirect, setGoogleRedirect] = useState(null);
 
-  // Получаем redirect_url с бэка при загрузке компонента
+  // Google redirect URL алуу
   useEffect(() => {
     const fetchGoogleRedirect = async () => {
       try {
@@ -20,7 +20,7 @@ export default function Login() {
         });
 
         if (!res.ok) {
-          throw new Error("Ошибка при получении URL для Google");
+          throw new Error("Google үчүн URL алуу учурунда каталык");
         }
 
         const data = await res.json();
@@ -34,60 +34,57 @@ export default function Login() {
   }, []);
 
   const handleLogin = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!email || !password) {
-    setError("Пожалуйста, заполните все поля");
-    return;
-  }
-
-  setLoading(true);
-  setError("");
-
-  try {
-    // создаём form-urlencoded данные
-    const formData = new URLSearchParams();
-    formData.append("username", email); // можно username или email
-    formData.append("password", password);
-
-    const res = await fetch(`${process.env.REACT_APP_API}accounts/login/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      credentials: "include",
-      body: formData.toString(),
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      console.log("Успешный вход:", data);
-      // здесь можно редиректить на главную страницу
-    } else if (res.status === 401) {
-      setError("Неверный логин или пароль");
-    } else {
-      setError("Ошибка сервера");
+    if (!email || !password) {
+      setError("Бардык талааларды толтуруңуз");
+      return;
     }
-  } catch (err) {
-    console.error(err);
-    setError("Ошибка сети");
-  } finally {
-    setLoading(false);
-  }
-};
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const formData = new URLSearchParams();
+      formData.append("username", email); // username же email
+      formData.append("password", password);
+
+      const res = await fetch(`${process.env.REACT_APP_API}accounts/login/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        credentials: "include",
+        body: formData.toString(),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log("Кирүү ийгиликтүү:", data);
+        // бул жерде негизги баракка багыттоого болот
+      } else if (res.status === 401) {
+        setError("Кирүү же пароль туура эмес");
+      } else {
+        setError("Серверде каталык чыкты");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Тармакта каталык чыкты");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleGoogleLogin = () => {
     if (googleRedirect) {
-      window.location.href = googleRedirect; // редиректим на Google
+      window.location.href = googleRedirect; // Google'ге багыттоо
     } else {
-      alert("URL для Google авторизации недоступен");
+      alert("Google авторизация үчүн URL жеткиликсиз");
     }
   };
 
   return (
     <div className="login-page">
       <form className="login-form" onSubmit={handleLogin}>
-        <h2>Вход в аккаунт</h2>
+        <h2>Аккаунтка кирүү</h2>
 
         {error && <p className="error">{error}</p>}
 
@@ -96,7 +93,7 @@ export default function Login() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Введите email"
+          placeholder="Emailиңизди киргизиңиз"
           required
         />
 
@@ -106,7 +103,7 @@ export default function Login() {
             type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Введите пароль"
+            placeholder="Пароль киргизиңиз"
             required
           />
           <button
@@ -114,33 +111,31 @@ export default function Login() {
             className="show-pass"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? "Скрыть" : "Показать"}
+            {showPassword ? "Жашыруу" : "Көрсөтүү"}
           </button>
         </div>
 
         <div className="remember-forgot">
-          <Link to="/forgot">Забыли пароль?</Link>
+          <Link to="/forgot">Паролду унуттуңузбу?</Link>
         </div>
 
         <button type="submit" disabled={loading}>
-          {loading ? "Вход..." : "Войти"}
+          {loading ? "Кирүү..." : "Кирүү"}
         </button>
 
-        {/* Кнопка Google */}
+        {/* Google менен кирүү */}
         <button
           type="button"
           onClick={handleGoogleLogin}
           className="google-login"
         >
-          Войти через Google
+          Google аркылуу кирүү
         </button>
 
         <p>
-          Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
+          Аккаунт жокпу? <Link to="/register">Катталуу</Link>
         </p>
       </form>
     </div>
   );
 }
-
-

@@ -7,7 +7,7 @@ import { AuthContext } from "../../providers/auth";
 import { calculateDiscountedPrice } from "../../components/lib";
 
 const Details = () => {
-  const {userData,setCart} = useContext(AuthContext);
+  const { userData, setCart } = useContext(AuthContext);
   const { categoryData } = useContext(CategoryContext);
   const { id } = useParams();
 
@@ -39,12 +39,12 @@ const Details = () => {
     fetchProduct();
   }, [id]);
 
-  if (loading) return <p>Загрузка...</p>;
-  if (!product) return <p>Товар не найден</p>;
+  if (loading) return <p>Жүктөлүүдө...</p>;
+  if (!product) return <p>Товар табылган жок</p>;
 
   const addToCart = async () => {
     if (!userData) {
-      alert("Авторизуйтесь, чтобы добавить в корзину!");
+      alert("Себетке кошуу үчүн авторизациядан өтүңүз!");
       return;
     }
     setLoading(true);
@@ -66,28 +66,28 @@ const Details = () => {
         body: JSON.stringify(bodyData),
       });
 
-      if (!res.ok) throw new Error("Ошибка при добавлении в корзину");
+      if (!res.ok) throw new Error("Себетке кошууда ката кетти");
 
       const data = await res.json();
       const newItem = data;
-      
+
       setCart((prevCart) => {
-         // ищем существующий товар по product
-         const existingIndex = prevCart.findIndex(item => item.product === newItem.product);
-     
-         if (existingIndex !== -1) {
-           // создаём новый массив с увеличенным count
-           const updatedCart = [...prevCart];
-           updatedCart[existingIndex] = {
-             ...updatedCart[existingIndex],
-             count: updatedCart[existingIndex].count + newItem.count
-           };
-           return updatedCart;
-         } else {
-           // товара нет — просто добавляем
-           return [...prevCart, newItem];
-         }
-    });
+        const existingIndex = prevCart.findIndex(
+          (item) => item.product === newItem.product
+        );
+
+        if (existingIndex !== -1) {
+          const updatedCart = [...prevCart];
+          updatedCart[existingIndex] = {
+            ...updatedCart[existingIndex],
+            count: updatedCart[existingIndex].count + newItem.count,
+          };
+          return updatedCart;
+        } else {
+          return [...prevCart, newItem];
+        }
+      });
+      setAdded(true);
     } catch (err) {
       console.error(err);
     } finally {
@@ -97,19 +97,19 @@ const Details = () => {
 
   const categoryName =
     categoryData?.find((cat) => cat.id === product.category)?.title ||
-    "Неизвестная";
+    "Белгисиз";
 
   return (
     <div className="details-page">
       <div className="details-container">
-        {/* Левая часть — основная картинка */}
+        {/* Сол жак — негизги сүрөт */}
         <div className="image-section">
           <img
             src={product.cover || Probimg}
             alt={product.title}
             className="main-image"
           />
-          {/* Галерея справа */}
+          {/* Галерея оң жакта */}
           <div className="gallery">
             {product.gallery?.length > 0 ? (
               product.gallery.map((img, i) => (
@@ -121,18 +121,24 @@ const Details = () => {
                 />
               ))
             ) : (
-              <p className="no-gallery">Нет дополнительных фото</p>
+              <p className="no-gallery">Кошумча сүрөттөр жок</p>
             )}
           </div>
         </div>
 
-        {/* Правая часть — информация */}
+        {/* Оң жак — маалымат */}
         <div className="info-section">
           <div className="info-section-desck">
             <h1>{product.title}</h1>
             {product.discount > 1 ? (
               <p>
-                <span style={{ textDecoration: "line-through", color: "#888", marginRight: "8px" }}>
+                <span
+                  style={{
+                    textDecoration: "line-through",
+                    color: "#888",
+                    marginRight: "8px",
+                  }}
+                >
                   {product.price} сом
                 </span>
                 <span style={{ fontWeight: "bold", color: "#ff4500" }}>
@@ -143,27 +149,26 @@ const Details = () => {
               <p className="price">{product.price} сом</p>
             )}
 
-          <p className="category">Категория: {categoryName}</p>
+            <p className="category">Категория: {categoryName}</p>
 
-          <div className="quantity-selector">
-            <label>Количество: </label>
-            <input
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
-            />
+            <div className="quantity-selector">
+              <label>Саны: </label>
+              <input
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+              />
+            </div>
+
+            <button className="add-cart-btn" onClick={addToCart}>
+              {added ? "Кошулду!" : "Себетке кошуу"}
+            </button>
           </div>
 
-          <button className="add-cart-btn" onClick={addToCart}>
-            {added ? "Добавлено!" : "Добавить в корзину"}
-          </button>
-          </div>
-          
-
-          {/* Описание */}
+          {/* Сүрөттөмө */}
           <div className="desc-block">
-            <h3>Описание:</h3>
+            <h3>Сүрөттөмө:</h3>
             {product.desc && typeof product.desc === "object" ? (
               <ul>
                 {Object.entries(product.desc).map(([key, value]) => (
@@ -173,12 +178,12 @@ const Details = () => {
                 ))}
               </ul>
             ) : (
-              <p>{product.desc || "Описание отсутствует"}</p>
+              <p>{product.desc || "Сүрөттөмө жок"}</p>
             )}
           </div>
 
           <div className="back-link">
-            <Link to="/catalog">← Назад в каталог</Link>
+            <Link to="/catalog">← Каталогго кайтуу</Link>
           </div>
         </div>
       </div>

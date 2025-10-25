@@ -16,17 +16,17 @@ const Register = () => {
     e.preventDefault();
 
     if (!name || !email || !password || !confirmPassword) {
-      setError("Пожалуйста, заполните все поля");
+      setError("Бардык талааларды толтуруңуз");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Пароли не совпадают");
+      setError("Паролдор дал келбейт");
       return;
     }
 
     if (!agree) {
-      setError("Вы должны принять условия использования");
+      setError("Колдонуу шарттарын кабыл алганыңыз керек");
       return;
     }
 
@@ -53,32 +53,31 @@ const Register = () => {
       const result = await res.json();
     
       if (!res.ok) {
-        setError(result.error || "Ошибка регистрации");
+        setError(result.error || "Каталык катталууда");
       } else {
         navigate("/verify");
       }
     } catch (err) {
       console.error(err);
-      setError("Сервер недоступен");
+      setError("Сервер жеткиликсиз");
     } finally {
       setLoading(false);
     }
-
   };
 
   return (
     <div className="register-page">
       <form className="register-form" onSubmit={handleRegister}>
-        <h2>Регистрация</h2>
+        <h2>Катталуу</h2>
 
         {error && <p className="error">{error}</p>}
 
-        <label>Имя:</label>
+        <label>Аты:</label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Введите имя"
+          placeholder="Атыңызды киргизиңиз"
           required
         />
 
@@ -87,7 +86,7 @@ const Register = () => {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Введите email"
+          placeholder="Email киргизиңиз"
           required
         />
 
@@ -96,16 +95,16 @@ const Register = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Введите пароль"
+          placeholder="Пароль киргизиңиз"
           required
         />
 
-        <label>Подтвердите пароль:</label>
+        <label>Паролду тастыктоо:</label>
         <input
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Повторите пароль"
+          placeholder="Паролду кайталаныз"
           required
         />
 
@@ -116,16 +115,16 @@ const Register = () => {
               checked={agree}
               onChange={() => setAgree(!agree)}
             />
-            Я принимаю <Link to="/terms">условия использования</Link>
+            Мен <Link to="/terms">колдонуу шарттарын</Link> кабыл алам
           </label>
         </div>
 
         <button type="submit" disabled={loading}>
-          {loading ? "Регистрация..." : "Зарегистрироваться"}
+          {loading ? "Катталууда..." : "Катталуу"}
         </button>
 
         <p>
-          Уже есть аккаунт? <Link to="/login">Войти</Link>
+          Аккаунт барбы? <Link to="/login">Кирүү</Link>
         </p>
       </form>
     </div>
