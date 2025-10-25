@@ -44,8 +44,11 @@ def addProduct(request):
             pass
     discount = float(request.POST.get("discount",0))
     count = request.POST.get("count")
+
+
     category_id = int(request.POST.get("category"))
     brand_id = int(request.POST.get("brand"))
+    
     price = int(request.POST.get("price"))
 
     cover = request.FILES.get("cover")

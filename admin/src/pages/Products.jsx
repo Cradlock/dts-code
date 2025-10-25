@@ -64,15 +64,20 @@ const ProductAdd = ({ set_func }) => {
 
 
     const handleSubmit = async (e) => {
-        if (!e.target.checkValidity()) {
-            alert("Бардык формаларды толтуруңуз")
-            return;
-        }; 
 
+     
         e.preventDefault();
         const formData = new FormData();
 
         const formElements = e.target.elements;
+            // Проверяем обязательные поля
+    const requiredFields = ["title", "price", "category", "brand"];
+    for (let field of requiredFields) {
+        if (!formElements[field].value.trim()) {
+            alert("Бардык милдеттүү талааларды толтуруңуз");
+            return; // прекращаем выполнение, если что-то не заполнено
+        }
+    }
     
         formData.append("title", formElements.title.value);
         formData.append("price", formElements.price.value);
@@ -82,6 +87,7 @@ const ProductAdd = ({ set_func }) => {
         formData.append("brand", formElements.brand.value);
     
         formData.append("desc", JSON.stringify(desc));
+
     
         if (cover) {
             formData.append("cover", cover);
@@ -91,6 +97,11 @@ const ProductAdd = ({ set_func }) => {
             const fileObj = file.file ? file.file : file;
             formData.append("gallery", fileObj);
         });
+
+        for (let [key, value] of formData.entries()) {
+    console.log(key, value);
+}
+
     
         try {
             setIsLoad(true);
@@ -98,7 +109,7 @@ const ProductAdd = ({ set_func }) => {
                 method: "POST",
                 body: formData,
                 credentials: "include",
-                headers: getCSRF()
+                
             });
     
             if (!response.ok) {
@@ -133,7 +144,8 @@ const ProductAdd = ({ set_func }) => {
                 <input name="discount" placeholder="discount" type="number" />
                 <input name="count" placeholder="count" type="number" />
 
-                <select name="category" >
+                <select name="category" defaultValue={""}>
+                    <option value="" disabled>Категория тандагыз</option>
                     {categories.map((elem) => (
                         <option key={elem.id} value={elem.id}>
                             {elem.title}
@@ -141,7 +153,8 @@ const ProductAdd = ({ set_func }) => {
                     ))}
                 </select>
 
-                <select name="brand" >
+                <select name="brand" defaultValue={""}>
+                    <option value="" disabled>Бренд тандагыз</option>
                     {brands.map((elem) => (
                         <option key={elem.id} value={elem.id}>
                             {elem.title}
@@ -155,7 +168,7 @@ const ProductAdd = ({ set_func }) => {
                 <img width={"50px"} height={"50px"}
                    src={URL.createObjectURL(cover)} 
                 />) :  
-                <div style={{ padding: "10px", border: "1px solid #ccc" }}>Обложка</div>
+                <div style={{ padding: "10px", border: "1px solid #ccc" }}>Обложкасы</div>
                 }
                 </label>
 

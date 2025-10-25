@@ -275,13 +275,6 @@ def deleteEvent(request, id):
 
 
 
-@csrf_exempt
-def check_cheque(request,uuid):
-    obj = Cheque.objects.filter(public_id=uuid).first()
-    if not obj:
-        return HttpResponse("Not check",status=400)
-    
-    return JsonResponse(Cheque_s(obj).data,status=200)
     
 
 
