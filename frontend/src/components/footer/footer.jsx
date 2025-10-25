@@ -1,6 +1,5 @@
 import { InfoContext } from "../../providers/info";
 import { useContext } from "react";
-import Load from "../../../../admin/src/components/Load";
 
 const Footer = () => {
   const { info_data, info_loading } = useContext(InfoContext);
