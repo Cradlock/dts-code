@@ -133,7 +133,7 @@ const ProductAdd = ({ set_func }) => {
                 <input name="discount" placeholder="discount" type="number" />
                 <input name="count" placeholder="count" type="number" />
 
-                <select name="category" required>
+                <select name="category" >
                     {categories.map((elem) => (
                         <option key={elem.id} value={elem.id}>
                             {elem.title}
@@ -141,7 +141,7 @@ const ProductAdd = ({ set_func }) => {
                     ))}
                 </select>
 
-                <select name="brand" required>
+                <select name="brand" >
                     {brands.map((elem) => (
                         <option key={elem.id} value={elem.id}>
                             {elem.title}
