@@ -5,6 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 const CircleLink = ({ url }) => {
   if (!url) return <div></div>; 
+  if (url == null) return <div></div>; 
 
   const circleStyle = {
     position: "fixed",
