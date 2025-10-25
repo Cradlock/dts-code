@@ -9,7 +9,7 @@ function News() {
   const [newsList, setNewsList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Загрузка всех новостей
+  // Бардык жаңылыктарды жүктөө
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -18,14 +18,14 @@ function News() {
           headers: { "Content-Type": "application/json" },
         });
 
-        if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
+        if (!res.ok) throw new Error(`Ката: ${res.status}`);
 
         const data = await res.json();
         console.log(data);
         
         setNewsList(data);
       } catch (err) {
-        console.error("Ошибка при получении событий:", err);
+        console.error("Иш-чараларды алуу учурунда ката болду:", err);
       } finally {
         setLoading(false);
       }
@@ -34,7 +34,7 @@ function News() {
     fetchEvents();
   }, []);
 
-  if (loading) return <h2>Загрузка новостей...</h2>;
+  if (loading) return <h2>Жаңылыктар жүктөлүүдө...</h2>;
 
   return (
     <div className="news">
@@ -59,14 +59,13 @@ function News() {
 
               <MediaViewer src={item.gallery?.[0]?.file || EventImg} />
 
-
               <div className="news-content">
                 <span className="news-category">
-                  {item.categories?.join(", ") || "Без категории"}
+                  {item.categories?.join(", ") || "Категориясыз"}
                 </span>
                 <h2>{item.title}</h2>
                 <span className="news-date">
-                  {new Date(item.date_start).toLocaleDateString("ru-RU")}
+                  {new Date(item.date_start).toLocaleDateString("ky-KG")}
                 </span>
                 <p>{item.desc}</p>
                 <Link to={`/news/${item.id}`} className="read-more">
@@ -84,7 +83,7 @@ function News() {
               <li key={item.id}>
                 <Link to={`/news/${item.id}`}>{item.title}</Link>
                 <span className="small-date">
-                  {new Date(item.date_start).toLocaleDateString("ru-RU")}
+                  {new Date(item.date_start).toLocaleDateString("ky-KG")}
                 </span>
               </li>
             ))}

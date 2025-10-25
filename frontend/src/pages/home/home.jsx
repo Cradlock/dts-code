@@ -17,12 +17,9 @@ const Home = () => {
   const [highlightedCategory, setHighlightedCategory] = useState(null);
 
   const [special,setSpecial] = useState("loaded");
-
   const [news,setNews] = useState("loaded");
 
-
-
-  // Загрузка товаров
+  // Товарларды жүктөө
   useEffect(() => {
     const req = async () => {
       try {
@@ -31,14 +28,14 @@ const Home = () => {
         );
 
         if (!res.ok) {
-          setError(`Ошибка при загрузке: ${res.status}`);
+          setError(`Жүктөөдө ката: ${res.status}`);
           return;
         }
 
         const data = await res.json();
         setRProduct(data.results);
       } catch (er) {
-        setError("Ошибка подключения к серверу");
+        setError("Серверге туташууда ката кетти");
       } finally {
         setLoading(false);
       }
@@ -51,21 +48,20 @@ const Home = () => {
         );
 
         if (!res.ok) {
-          setError(`Ошибка при загрузке: ${res.status}`);
+          setError(`Жүктөөдө ката: ${res.status}`);
           return;
         }
 
         const data = await res.json();
-        
         setSpecial(data);
       } catch(er){
-        setError("Ошибка подключения к серверу");
+        setError("Серверге туташууда ката кетти");
         setSpecial(null);
-
-      }finally {
+      } finally {
         setLoading(false);
       }
     }
+
     const reqNews = async () => {
       try{
          const res = await fetch(
@@ -73,23 +69,19 @@ const Home = () => {
         );
 
         if (!res.ok) {
-          setError(`Ошибка при загрузке: ${res.status}`);
+          setError(`Жүктөөдө ката: ${res.status}`);
           return;
         }
 
         const data = await res.json();
-        
         setNews(data);
       } catch(er){
-        setError("Ошибка подключения к серверу");
+        setError("Серверге туташууда ката кетти");
         setNews(null);
-
-      }finally {
+      } finally {
         setLoading(false);
       }
     }
-
-
 
     req();
     reqEvents();
@@ -97,17 +89,17 @@ const Home = () => {
   }, []);
 
   if (info_loading == null)
-    return <h1>Ошибка загрузки информации о магазине</h1>;
+    return <h1>Магазин тууралуу маалымат жүктөлбөй калды</h1>;
 
-  if (info_loading) return <Spinner text={"Загрузка данных..."} />;
+  if (info_loading) return <Spinner text={"Маалымат жүктөлүүдө..."} />;
 
   const renderOffers = () => {
     if (special === "loaded") {
-      return <Spinner />; // пока грузим — спиннер
+      return <Spinner />; // жүктөлүп жатканда — спиннер
     }
 
     if (!special || special.length === 0) {
-      return null; // пустой список — не рисуем
+      return null; // бош тизмек болсо — көрсөтпөйбүз
     }
 
     return (
@@ -115,7 +107,7 @@ const Home = () => {
         {special.map((item) => (
           <div key={item.id} className="offer-card">
             <h3>{item.product_name || item.title}</h3>
-            <p>{item.desc || "Нет описания"}</p>
+            <p>{item.desc || "Баяндоо жок"}</p>
           </div>
         ))}
       </div>
@@ -124,7 +116,7 @@ const Home = () => {
 
   const renderNews = () => {
     if (news === "loaded") {
-      return <Spinner />; // пока грузим — спиннер
+      return <Spinner />; // жүктөлүп жатканда — спиннер
     }
 
     if (!news || news.length === 0) {
@@ -133,14 +125,14 @@ const Home = () => {
 
     return (
        <div className="container">
-          <h2 className="section-title">📰 Последние новости</h2>
+          <h2 className="section-title">📰 Акыркы жаңылыктар</h2>
       <ul className="news-list">
         {news.map((item) => (
             <li>{item.desc}</li>
         ))}
       </ul>
           <Link to="/news" className="btn-secondary" style={{color:"blue"}}>
-            Все новости
+            Бардык жаңылыктар
           </Link>
         </div>
     );
@@ -152,39 +144,39 @@ const Home = () => {
       <section className="banner">
         <div className="container">
           <div className="banner-content">
-            <h1>Добро пожаловать в {info_data?.title || "DTS Shop"}</h1>
-            <p>Лучшие товары по выгодным ценам.</p>
+            <h1>{info_data?.title || "DTS Shop"} дүкөнүнө кош келиңиз</h1>
+            <p>Эң мыкты товарлар эң ылайыктуу баада.</p>
             <div className="banner-buttons">
               <Link to="/catalog" className="btn-primary">
-                🛒 Перейти в каталог
+                🛒 Каталогго өтүү
               </Link>
               <Link to="/about" className="btn-secondary">
-                ℹ️ Узнать больше
+                ℹ️ Кененирээк билүү
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 🔹 АКЦИИ / СПЕЦПРЕДЛОЖЕНИЯ */}
+      {/* 🔹 АРЗАНДАТУУЛАР / СПЕЦПРЕДЛОЖЕНИЯ */}
       <section className="special-offers">
         <div className="container">
-          <h2 className="section-title">🔥 Спецпредложения</h2>
+          <h2 className="section-title">🔥 Өзгөчө сунуштар</h2>
           {error && <p style={{ color: "red" }}>{error}</p>}
           {renderOffers()}
         </div>
       </section>
 
-      {/* 🔹 РЕКОМЕНДОВАННЫЕ ТОВАРЫ */}
+      {/* 🔹 СУНУШТАЛГАН ТОВАРЛАР */}
       <section className="products">
         <div className="container">
-          <h2 className="section-title">🛍 Рекомендованные товары</h2>
+          <h2 className="section-title">🛍 Сунушталган товарлар</h2>
 
           {error && <p className="error-text">{error}</p>}
 
           <div className="products-grid">
             {loading ? (
-              <Spinner text={"Загрузка товаров..."} />
+              <Spinner text={"Товарлар жүктөлүүдө..."} />
             ) : (
               recommend_products.map((elem) => (
                 <div className="card" key={elem.id}>
@@ -212,12 +204,12 @@ const Home = () => {
                      )}
 
                     <p className="desc">
-                      {elem.description?.slice(0, 60) || "Описание отсутствует"}
+                      {elem.description?.slice(0, 60) || "Баяндоо жок"}
                       ...
                     </p>
                     <div className="card-actions">
                       <Link to={`/details/${elem.id}`} className="details-btn">
-                        Подробнее
+                        Толугураак
                       </Link>
                     </div>
                   </div>
@@ -228,13 +220,13 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 🔹 КАТЕГОРИИ */}
+      {/* 🔹 КАТЕГОРИЯЛАР */}
       <section className="categories">
         <div className="container">
-          <h2 className="section-title">📂 Категории</h2>
+          <h2 className="section-title">📂 Категориялар</h2>
 
           {categoryLoading ? (
-            <Spinner text={"Загрузка категорий..."} />
+            <Spinner text={"Категориялар жүктөлүүдө..."} />
           ) : (
             <div className="categories-list">
               {categoryData.map((elem) => (
@@ -256,35 +248,31 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 🔹 О КОМПАНИИ */}
+      {/* 🔹 БИЗ ЖӨНҮНДӨ */}
       <section className="about-preview">
         <div className="container">
-          <h2 className="section-title">🏢 О нас</h2>
+          <h2 className="section-title">🏢 Биз жөнүндө</h2>
           <div className="about-content">
             <p>
-              Мы — {info_data?.title || "онлайн-магазин"}, который предлагает
-              качественные товары: электронику, одежду, технику и многое другое.
-              Мы гордимся нашими низкими ценами и быстрой.
+              Биз — {info_data?.title || "онлайн-дүкөн"}, сапаттуу товарларды сунуштайбыз: электроника, кийим-кече, техника жана башка көп нерсе.
+              Биз арзан баалар жана ылдам жеткирүү менен сыймыктанабыз.
             </p>
             <ul className="about-list">
-              <li>💳 Удобные способы оплаты</li>
-              <li>🛡 Гарантия качества на каждый товар</li>
+              <li>💳 Төлөмдүн ыңгайлуу ыкмалары</li>
+              <li>🛡 Ар бир товарга сапат кепилдиги</li>
             </ul>
             <Link to="/about" className="btn-secondary">
-              Подробнее
+              Толугураак
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 🔹 НОВОСТИ */}
+      {/* 🔹 ЖАҢЫЛЫКТАР */}
       <section className="news-preview">
           {error && <p style={{ color: "red" }}>{error}</p>}
           {renderNews()}
-
       </section>
-
-      
     </div>
   );
 };
