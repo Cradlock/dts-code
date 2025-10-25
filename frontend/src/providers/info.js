@@ -51,7 +51,7 @@ export const InfoProvider = ({ children }) => {
   }, []);
 
   return (
-    <InfoContext.Provider value={{ info_data, info_loading , admin_url,func_admin}}>
+    <InfoContext.Provider value={{ info_data, info_loading , admin_url}}>
       {children}
     </InfoContext.Provider>
   );
