@@ -479,6 +479,7 @@ const setElemNumbers = (idx, newValue) => {
                                         disabled
                                     />
 
+                                    
 
                                     <button type="button" onClick={() => handleSave(elem, "category")}>
                                         Save
