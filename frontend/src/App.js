@@ -51,7 +51,7 @@ function App() {
 
       {userData && <OrderNotifications />}
 
-      <AdminLink />
+      
 
       <Routes>
         <Route path="/" element={<Home />} />
