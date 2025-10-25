@@ -23,6 +23,8 @@ const Login = () => {
         setTimeout(() => {
           setVisible(false);
         }, 2000);
+        console.log(document.cookie);
+
   };
     
     const handleChange = (e) => {
@@ -30,10 +32,9 @@ const Login = () => {
     }
 
     const handelSubmit = async (e) => {
-        e.preventDefault();
         
-        console.log(getCSRF()["X-CSRFToken"]);
-        alert(getCSRF()["X-CSRFToken"]);
+        e.preventDefault();
+        console.log(getCSRF());        
         try{
         const res = await fetch(`${api_url}/accounts/login/`, {
             method: "POST",
@@ -45,7 +46,8 @@ const Login = () => {
                 password: formData.password
             }).toString(    )
         })
-
+        
+        
         if(res.ok){
             window.location.href = "/"
         } else{
