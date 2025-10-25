@@ -4,41 +4,32 @@ import { FaGoogle } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../auth";
 
-
 const Header = () => {
-    const { info,setInfo } = useContext(AuthContext);
+    const { info, setInfo } = useContext(AuthContext);
     
     const logoutSubmit = async () => {
-        window.location.href = `${process.env.REACT_APP_API}/accounts/logout/`
-    }
+        window.location.href = `${process.env.REACT_APP_API}/accounts/logout/`;
+    };
     
     return (
         <header>
             <div className="header_pages">
-                <Link to={"/events"}> <button>События</button> </Link>
-                <Link to={"/products"}> <button>Товары</button> </Link>
-                <Link to={"/panel"}> <button>Панель управления</button> </Link>
-                <Link to={"/"}> <button>Главная</button> </Link>
-                <Link to={"/orders"}> <button>Заказы</button> </Link>
+                <Link to={"/events"}> <button>Иш-чаралар</button> </Link> {/* События */}
+                <Link to={"/products"}> <button>Товарлар</button> </Link> {/* Товары */}
+                <Link to={"/panel"}> <button>Башкаруу панелi</button> </Link> {/* Панель управления */}
+                <Link to={"/"}> <button>Башкы бет</button> </Link> {/* Главная */}
+                <Link to={"/orders"}> <button>Заказдар</button> </Link> {/* Заказы */}
             </div>
-            
             
             <div className="header_auth">
-                
-                { info ? 
-                    ( 
-                       <button onClick={() => logoutSubmit()}> Logout</button> )
-                    : 
-                    (<Link to={"/login"}> <FaGoogle className="header_icon" /> </Link>)
-
-                }
-            
-            
+                {info ? (
+                    <button onClick={() => logoutSubmit()}> Чыгуу </button> // Logout -> Чыгуу
+                ) : (
+                    <Link to={"/login"}> <FaGoogle className="header_icon" /> </Link>
+                )}
             </div>
-        
-        
         </header>
-    )
-}
+    );
+};
 
 export default Header;

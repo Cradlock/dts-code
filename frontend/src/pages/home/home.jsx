@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import Spinner from "../Spinner.jsx/Spinner";
 import productImg from "../../images/pngtree-not-found-image_2238448.jpg"
 import { calculateDiscountedPrice } from "../../components/lib";
-
+import Load from "../../components/load";
 
 const Home = () => {
   const { info_data, info_loading } = useContext(InfoContext);

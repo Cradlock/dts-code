@@ -478,9 +478,12 @@ const setElemNumbers = (idx, newValue) => {
                                         value={elem.last_update}
                                         disabled
                                     />
+
+
                                     <button type="button" onClick={() => handleSave(elem, "category")}>
                                         Save
                                     </button>
+                                    
                                     <button type="button" onClick={() => handleDelete(elem.id, "category", categories, setCategories)}>
                                         <MdDelete />
                                     </button>

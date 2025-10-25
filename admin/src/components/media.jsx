@@ -39,7 +39,7 @@ const MediaViewer = ({ src, id, width = "100%", height = "auto", controls = true
     };
   }, [src]);
 
-  if (!url) return <p>Нет файла</p>;
+  if (!url) return <p>Файл жок</p>; // "Нет файла" -> "Файл жок"
 
   switch (type) {
     case "image":
@@ -47,7 +47,7 @@ const MediaViewer = ({ src, id, width = "100%", height = "auto", controls = true
         <img
           id={id}
           src={url}
-          alt="media"
+          alt="медиа" // "media" -> "медиа"
           style={{ width, height, objectFit: "cover", borderRadius: "8px" }}
         />
       );
@@ -66,7 +66,7 @@ const MediaViewer = ({ src, id, width = "100%", height = "auto", controls = true
       return <audio id={id} src={url} controls={controls} style={{ width }} />;
 
     default:
-      return <p style={{ color: "gray" }}>Неизвестный тип файла</p>;
+      return <p style={{ color: "gray" }}>Белгисиз файл түрү</p>; // "Неизвестный тип файла" -> "Белгисиз файл түрү"
   }
 };
 

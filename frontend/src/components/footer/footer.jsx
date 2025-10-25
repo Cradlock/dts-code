@@ -1,6 +1,6 @@
 import { InfoContext } from "../../providers/info";
 import { useContext } from "react";
-
+import Load from "../../../../admin/src/components/Load";
 
 const Footer = () => {
   const { info_data, info_loading } = useContext(InfoContext);
@@ -21,13 +21,7 @@ const Footer = () => {
           {/* О компании */}
           <div className="footer-col">
             <h4>О компании</h4>
-            <p>
-              Мы создаём современные IT-решения, помогаем бизнесу и людям расти
-              вместе с технологиями.
-            </p>
-            <p className="copyright">
-              © 2025 IT Run | Сделано с ❤️ by WorthlessSoul
-            </p>
+           
           </div>
 
           {/* Контакты */}

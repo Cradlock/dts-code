@@ -49,29 +49,31 @@ const EventDelete = ({ obj, set_func }) => {
     const handlerDelete = async () => {
         const endpoint = `${process.env.REACT_APP_API}/admin_api/delete/event/${obj.id}/`;
         try {
-            const res = await fetch(endpoint, { method: "GET", credentials: "include",headers: getCSRF() });
+            const res = await fetch(endpoint, { method: "GET", credentials: "include", headers: getCSRF() });
             if (res.ok) {
                 setEvents(events.filter(ev => ev.id !== obj.id));
                 set_func(null);
             } else {
-                alert("Error deleting event");
+                alert("Иш-чараны өчүрүүдө ката чыкты"); // Error deleting event
             }
         } catch (err) {
-            alert("Network error");
+            alert("Тармактагы ката"); // Network error
         }
     };
 
     return (
         <div className="event-delete-box">
-            <h1>Are you sure?</h1>
-            <span>Event: {obj.title}</span>
+            <h1>Сиз чындыгында иш-чараны өчүргүңүз келеби?</h1> {/* Are you sure? */}
+            <span>Иш-чара: {obj.title}</span> {/* Event */}
             <div className="event-delete-btns">
-                <button onClick={handlerDelete}>Yes</button>
-                <button onClick={() => set_func(null)}>No</button>
+                <button onClick={handlerDelete}>Ооба</button> {/* Yes */}
+                <button onClick={() => set_func(null)}>Жок</button> {/* No */}
             </div>
         </div>
     );
 };
+
+
 
 const EventEdit = ({ obj, set_func }) => {
   const { categories, brands } = useContext(ProductContext);
@@ -301,12 +303,14 @@ const EventEdit = ({ obj, set_func }) => {
             </label>
           </div>
 
-          <button type="submit">Сохранить изменения</button>
+          <button type="submit">Сактоо</button>
         </form>
       )}
     </div>
   );
 };
+
+
 
 
 function EventAdd({ set_func }) {
@@ -518,80 +522,62 @@ function EventAdd({ set_func }) {
           </label>
         </div>
 
-        <button type="submit">Добавить событие</button>
+        <button type="submit">Окуя кошуу </button>
       </form>
     </div>
   );
 }
 
+
 const EventBox = ({ obj, set_func }) => {
-
-
     return (
         <div className="event-box" key={obj.id}>
             <div className="event-box-title">
                 {obj.title}
 
                 <div className="event-box-date">
-                    {Date(obj.date_end)}
+                    {new Date(obj.date_end).toLocaleDateString('ky-KG')} {/* Дата в кыргызском формате */}
                 </div>
 
-                <span>Скидка на товары: {obj.discount_precent}% </span>
-
+                <span>Жеңилдик {obj.discount_precent}% </span> {/* Скидка */}
             </div>
 
             <div className="event-box-action">
-                <button onClick={() => set_func(<EventDetail obj={obj} set_func={set_func} />)} > <CiRead /> </button>
-
+                <button onClick={() => set_func(<EventDetail obj={obj} set_func={set_func} />)}> <CiRead /> </button>
                 <button onClick={() => set_func(<EventEdit obj={obj} set_func={set_func} />)}> <MdEdit /> </button>
-
                 <button onClick={() => set_func(<EventDelete obj={obj} set_func={set_func} />)}> <MdDelete /> </button>
             </div>
         </div>
-
     );
 }
 
 const Events = () => {
     const { info, loading } = useContext(AuthContext);
-
     const { events, event_loading } = useContext(EventContext);
-
     const [selectedEvent, setSelectedEvent] = useState(null);
-
-
 
     if (loading) return <Load />;
     if (!info) return <Not403 />;
 
-
     return (
         <div className="event-container">
-           
-
             <div className="event-list">
-                {event_loading ?
-                    (<p>Загрузка</p>)
-                    : (
-                        events.map((elem, idx) => (
-                            <EventBox key={idx} obj={elem} set_func={setSelectedEvent} />
-                        ))
-                    )
+                {event_loading 
+                    ? (<p>Жүктөлүүдө...</p>) // Загрузка
+                    : events.map((elem, idx) => (
+                        <EventBox key={idx} obj={elem} set_func={setSelectedEvent} />
+                    ))
                 }
             </div>
 
-            <div className="event-add" onClick={() => setSelectedEvent(<EventAdd set_func={setSelectedEvent} />)} >
-                <button > <FaPlus /> </button>
+            <div className="event-add" onClick={() => setSelectedEvent(<EventAdd set_func={setSelectedEvent} />)}>
+                <button> <FaPlus /> </button>
             </div>
 
             {selectedEvent && (
                 <div id="modal-event" onClick={() => setSelectedEvent(null)}>
-
-                    <div id="modal-event-inner"
-                        onClick={(e) => e.stopPropagation()}>
-                        <>
-                            {selectedEvent}
-                        </>
+                    <div id="modal-event-inner" onClick={(e) => e.stopPropagation()}>
+                        {selectedEvent}
                     </div>
                 </div>
             )}
