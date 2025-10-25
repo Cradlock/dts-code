@@ -21,11 +21,13 @@ import { AuthContext } from "./providers/auth.js";
 import NotFound from "./pages/NotFound.jsx/NotFound.jsx";
 import Spinner from "./pages/Spinner.jsx/Spinner.jsx";
 
+import CircleLink from "./components/admin.jsx";
+
 function App() {
-  const { info_data, info_loading } = useContext(InfoContext);
+  const { info_data, info_loading,admin_url } = useContext(InfoContext);
   const { userData } = useContext(AuthContext);
 
-  
+
 
   if (info_loading) {
     return (
@@ -38,6 +40,8 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
+      <CircleLink url={admin_url}/>
+      
 
       {/* Динамический favicon и title */}
       {info_data && (
