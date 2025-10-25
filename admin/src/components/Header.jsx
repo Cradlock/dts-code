@@ -16,7 +16,7 @@ const Header = () => {
             <div className="header_pages">
                 <Link to={"/events"}> <button>Иш-чаралар</button> </Link> {/* События */}
                 <Link to={"/products"}> <button>Товарлар</button> </Link> {/* Товары */}
-                <Link to={"/panel"}> <button>Башкаруу панелi</button> </Link> {/* Панель управления */}
+                <Link to={"/panel"}> <button>Башкаруу панели</button> </Link> {/* Панель управления */}
                 <Link to={"/"}> <button>Башкы бет</button> </Link> {/* Главная */}
                 <Link to={"/orders"}> <button>Заказдар</button> </Link> {/* Заказы */}
             </div>
