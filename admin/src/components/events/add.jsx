@@ -174,7 +174,7 @@ function EventAdd({ set_func }) {
           <div className="gallery-wrap">
             {images.map((elem, idx) => (
               <div className="gallery-img" key={idx}>
-                <MediaViewer id={`image-${idx}`} src={elem} />
+                <MediaViewer id={`image-${idx}`} src={elem.file} />
                 <button type="button" className="delete-btn" onClick={() => deleteImage(idx)}>
                   <MdDelete />
                 </button>
