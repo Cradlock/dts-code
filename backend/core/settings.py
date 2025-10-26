@@ -95,6 +95,7 @@ LOCALHOSTS = [
     "http://127.0.0.1:3000",
     "http://localhost:3001",
     "http://127.0.0.1:3001",
+    
 ]
 
 
@@ -190,6 +191,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_COOKIE_HTTPONLY = False  
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = FRONTEND_URL.split(",")
+
+
+CSRF_COOKIE_DOMAIN = ".shop-dts.org"
+SESSION_COOKIE_DOMAIN = ".shop-dts.org"
+
 
 # Объединяем
 CSRF_TRUSTED_ORIGINS += LOCALHOSTS
