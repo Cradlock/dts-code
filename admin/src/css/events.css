@@ -268,3 +268,41 @@
 .gallery-img button:hover {
     background-color: #b71c1c;
 }
+
+.gallery-add{
+    width: 45px;
+    height: 45px;
+    background-color: red;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-add{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 15px;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+
+}
+
+.event-add button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.event-add button svg {
+    display: block; 
+}
+
+
