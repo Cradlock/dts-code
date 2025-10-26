@@ -3,13 +3,14 @@ from .view_google import *
     
 from django.views.decorators.csrf import ensure_csrf_cookie
 
+@csrf_exempt
 def get_admin_url(request):
     if is_admin(request):
         return JsonResponse({"data":settings.HOST.split(",")[-1].strip()},status=200)
     
     return JsonResponse({"error":"You not admin"},status=200)
 
-
+@csrf_exempt
 def login_view(request):
     if request.method != "POST":
         return HttpResponse("Method not allowed",status=500) 
@@ -40,6 +41,7 @@ def login_view(request):
     
     return HttpResponse("Unautorized",status=401)
 
+@csrf_exempt
 def signup_view(request):
     if request.method == "GET":
         return render(request,"signup.html")
