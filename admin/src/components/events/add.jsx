@@ -38,9 +38,8 @@ function EventAdd({ set_func }) {
   };
 
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    const newImages = files.map((file) => ({ file }));
-    setImages([...images, ...newImages]);
+    const files = Array.from(e.target.files).map((file) => ({ file }));
+    setImages([...images, ...files]);
   };
 
   const editImage = (e, idx) => {
@@ -189,7 +188,6 @@ function EventAdd({ set_func }) {
               id="gallery-add-event"
               type="file"
               multiple
-              accept="image/*"
               onChange={handleFileChange}
             />
           </div>
