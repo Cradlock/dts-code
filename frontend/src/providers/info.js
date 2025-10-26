@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { getCookie } from "../components/lib";
 const api_url = process.env.REACT_APP_API;
 export const InfoContext = createContext();
 
@@ -46,6 +47,8 @@ export const InfoProvider = ({ children }) => {
 
     func();
     func_admin();
+
+    getCookie("csrftoken");
 
 
   }, []);
