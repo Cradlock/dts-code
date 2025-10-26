@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     checkAuth();
-    console.log(getCSRF());
+    alert(getCSRF());
   }, []);
 
   return (
