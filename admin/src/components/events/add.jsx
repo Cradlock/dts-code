@@ -91,7 +91,6 @@ function EventAdd({ set_func }) {
         method: "POST",
         body: data,
         credentials: "include",
-        headers: getCSRF()
       });
 
       const result = await res.json();
@@ -125,13 +124,21 @@ function EventAdd({ set_func }) {
           placeholder="Описание"
         />
 
-        <input
+
+          <input
           type="number"
           name="discount_precent"
           value={formData.discount_precent}
           onChange={handleChange}
           placeholder="Скидка (влияние на продукты) (%)"
-        />
+          id="discount_event_add"
+          />
+
+          <label htmlFor="discount_event_add">
+            <span>Скидка</span>
+          </label>
+        
+
 
         <div className="event-datetimes">
           <input
